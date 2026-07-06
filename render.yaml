@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: nativa-sur-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    region: oregon
+    envVars:
+      - key: FLOW_API_KEY
+        value: 56139FB1-5C9B-498E-B5C2-50925LBA0AE3
+      - key: FLOW_SECRET_KEY
+        value: 67e2d2f71a1985c061dbf378de076b71abffb179
+      - key: FLOW_URL
+        value: https://www.flow.cl/api
+      - key: FRONTEND_URL
+        value: https://nasur.cl
+      - key: ADMIN_EMAIL
+        value: ignaciocabezascontreras@gmail.com
+      - key: ADMIN_PASSWORD
+        value: NativaSur2025!
+      - key: ADMIN_NAME
+        value: Ignacio Cabezas
+      - key: CORS_ORIGINS
+        value: https://nasur.cl,https://www.nasur.cl,http://localhost:3000
