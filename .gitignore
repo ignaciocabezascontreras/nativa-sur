@@ -1,6 +1,12 @@
 ﻿node_modules/
+backend/venv/
 backend/__pycache__/
+backend/**/__pycache__/
 backend/db/*.db
 backend/.env
 *.log
+*.pyc
 .env
+screen_*.png
+frontend-vite/
+frontend/
