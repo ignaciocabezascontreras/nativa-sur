@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from db.database import init_db
+init_db()
+
 app = FastAPI(title="Nativa Sur API", version="1.0.0")
 
 _origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000")
