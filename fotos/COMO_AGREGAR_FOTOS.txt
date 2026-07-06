@@ -1,0 +1,74 @@
+=============================================
+  NATIVA SUR — CÓMO AGREGAR FOTOS
+=============================================
+
+1. NOMBRES RECOMENDADOS PARA TUS ARCHIVOS
+   Guarda tus fotos en esta carpeta con estos nombres:
+
+   fotos/almendras.jpg
+   fotos/nueces.jpg
+   fotos/maranon.jpg
+   fotos/pistachos.jpg
+   fotos/chia.jpg
+   fotos/girasol.jpg
+   fotos/zapallo.jpg
+   fotos/mix-energetico.jpg
+   fotos/mix-deluxe.jpg
+   fotos/arandanos.jpg
+   fotos/mango.jpg
+   fotos/pasas.jpg
+   fotos/banner-principal.jpg   ← para el hero (foto de fondo grande)
+   fotos/nosotros.jpg           ← para la sección "Quiénes somos"
+
+   Formatos aceptados: JPG, PNG, WEBP
+   Tamaño recomendado: mínimo 800x600 px
+
+
+2. CÓMO ACTUALIZAR LA GALERÍA
+   Abre index.html y busca el bloque "const GALERIA = ["
+   Para cada foto que tengas, cambia el objeto así:
+
+   ANTES (placeholder):
+     { emoji: '🥜', label: 'Almendras Premium', color: '#5a7a3a', caption: '...' }
+
+   DESPUÉS (con tu foto):
+     { src: 'fotos/almendras.jpg', caption: 'Almendras Premium · California' }
+
+
+3. CÓMO ACTUALIZAR LAS TARJETAS DE PRODUCTO
+   Busca en index.html el bloque "const PRODUCTOS = ["
+   Cambia la línea del emoji por una imagen así:
+
+   ANTES:
+     { id: 1, ..., emoji: '🥜', ... }
+
+   DESPUÉS:
+     { id: 1, ..., img: 'fotos/almendras.jpg', ... }
+
+   Luego busca en el HTML:
+     <div class="producto-img">${p.emoji}</div>
+   Y cámbialo por:
+     <div class="producto-img"><img src="${p.img || ''}" alt="${p.nombre}" style="width:100%;height:100%;object-fit:cover;"></div>
+
+
+4. CÓMO AGREGAR EL LOGO REAL
+   Guarda tu logo como: fotos/logo.png
+   En index.html busca este bloque:
+
+     <div class="hero-placeholder">
+       <div class="hero-placeholder-text">...
+
+   Y reemplázalo por:
+
+     <img src="fotos/logo.png" class="hero-logo" alt="Nativa Sur">
+
+
+5. CONSEJOS PARA LAS FOTOS
+   - Fondo blanco o crema para los productos (queda muy profesional)
+   - Luz natural si puedes, desde el lado
+   - Puedes sacarlas con tu celular — la cámara de iPhone/Android 2024 es suficiente
+   - Edítalas gratis en: snapseed.com o en la app Snapseed (cel)
+   - Si quieres fondo transparente (PNG), usa: remove.bg
+
+
+=============================================

@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nativa Sur — Frutos Secos · Naturaleza Pura</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ══════════════════════════════════════════════
+       PALETA NATURALEZA — verdes · cafés · blancos
+    ══════════════════════════════════════════════ */
+    :root {
+      /* Verdes */
+      --v-deep:    #0f1f0a;
+      --v-dark:    #1c3a10;
+      --v-mid:     #2e5e1a;
+      --v-sage:    #5a7d45;
+      --v-light:   #8fb87a;
+      --v-mist:    #d4e6c3;
+
+      /* Cafés / tierras */
+      --t-dark:    #2c1a0e;
+      --t-mid:     #6b3f1f;
+      --t-warm:    #a0622a;
+      --t-sand:    #c9a46e;
+      --t-honey:   #e8c882;
+
+      /* Blancos / cremas — modo claro (default) */
+      --c-paper:   #f9f5ef;
+      --c-cream:   #f2ebe0;
+      --c-linen:   #e8dfd0;
+      --c-white:   #ffffff;
+
+      /* UI — modo claro */
+      --text-dark:  #1a120a;
+      --text-mid:   #4a3728;
+      --text-light: #7a6555;
+      --border:     #ddd5c5;
+
+      /* Fondo de página y tarjetas */
+      --bg-page:    #f9f5ef;
+      --bg-card:    #ffffff;
+      --bg-section: #f2ebe0;
+
+      /* Radios */
+      --r-sm: 10px;
+      --r-md: 18px;
+      --r-lg: 28px;
+      --r-xl: 40px;
+
+      /* Sombras cálidas */
+      --sh-sm: 0 2px 12px rgba(44,26,14,.07);
+      --sh-md: 0 6px 32px rgba(44,26,14,.12);
+      --sh-lg: 0 16px 64px rgba(44,26,14,.18);
+      --sh-xl: 0 32px 96px rgba(44,26,14,.22);
+
+      --ease: cubic-bezier(.25,.46,.45,.94);
+    }
+
+    /* ══════ MODO OSCURO ══════ */
+    html.dark {
+      --c-paper:   #0d1208;
+      --c-cream:   #131b0e;
+      --c-linen:   #1a2413;
+      --c-white:   #1e2a17;
+
+      --text-dark:  #e8dfd0;
+      --text-mid:   #b8a898;
+      --text-light: #8a7a6a;
+      --border:     #2a3a20;
+
+      --bg-page:    #0d1208;
+      --bg-card:    #131b0e;
+      --bg-section: #1a2413;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      background: var(--bg-page);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--v-sage); color: #fff; }
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-thumb { background: var(--c-linen); border-radius:99px; }
+
+    /* ══════════ NAV SUPERIOR ══════════ */
+    .topbar {
+      position: sticky; top: 0; z-index: 300;
+      background: var(--v-deep);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    /* — Nav principal — */
+    nav {
+      height: 64px;
+      display: flex; align-items:center; justify-content:space-between;
+      padding: 0 5%;
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:.55rem;
+      text-decoration:none;
+    }
+    .nav-logo img {
+      height: 42px; width: 42px; border-radius: 50%;
+      object-fit: cover;
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,.4));
+    }
+    .nav-logo-text {
+      font-size: 1.1rem; font-weight:800;
+      color: #f2ebe0; letter-spacing:-.3px; line-height:1;
+    }
+    .nav-logo-text span { color: var(--t-honey); }
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      color: rgba(242,235,224,.6);
+      text-decoration:none; font-size:.85rem; font-weight:500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--c-cream); }
+    .cart-btn {
+      display:flex; align-items:center; gap:.5rem;
+      background: var(--t-warm); color: var(--c-white);
+      border:none; padding:.48rem 1.1rem; border-radius:99px;
+      cursor:pointer; font-size:.85rem; font-weight:600;
+      font-family:inherit; transition: all .2s var(--ease);
+      box-shadow: 0 2px 12px rgba(160,98,42,.35);
+    }
+    .cart-btn:hover { background: var(--t-sand); transform:translateY(-1px); }
+    #cart-count {
+      background: var(--v-dark); color: var(--t-honey);
+      border-radius:50%; width:20px; height:20px;
+      font-size:.7rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* ══════════ BOTTOM TOOLBAR ══════════ */
+    .bottom-toolbar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 460;
+      background: rgba(12,24,8,.96);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-top: 1px solid rgba(255,255,255,.09);
+      display: flex; align-items: stretch;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-shadow: 0 -4px 32px rgba(0,0,0,.4);
+    }
+
+    .tb-btn {
+      position: relative;
+      flex: 1;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: .28rem;
+      background: none; border: none;
+      color: rgba(255,255,255,.45);
+      font-family: inherit; font-size: .65rem; font-weight: 600;
+      padding: .7rem .3rem .65rem;
+      cursor: pointer; transition: all .18s;
+      letter-spacing: .3px; text-transform: uppercase;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tb-btn svg { width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.8; transition: all .18s; }
+    .tb-btn:hover, .tb-btn.active {
+      color: var(--t-honey);
+    }
+    .tb-btn:hover svg, .tb-btn.active svg { stroke: var(--t-honey); transform: translateY(-2px); }
+    .tb-btn:active { transform: scale(.94); }
+
+    /* separador vertical */
+    .tb-sep {
+      width: 1px; background: rgba(255,255,255,.07);
+      align-self: stretch; margin: .5rem 0;
+    }
+
+    /* toggle tema oscuro/claro */
+    .tb-theme-track {
+      width: 42px; height: 24px; border-radius: 99px;
+      background: rgba(255,255,255,.15);
+      border: 1.5px solid rgba(255,255,255,.2);
+      position: relative; cursor: pointer;
+      transition: background .3s var(--ease);
+      flex-shrink: 0;
+    }
+    html.dark .tb-theme-track { background: var(--v-mid); border-color: var(--v-sage); }
+    .tb-theme-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .3s var(--ease), background .3s;
+    }
+    html.dark .tb-theme-thumb { transform: translateX(18px); background: var(--t-honey); }
+    .tb-theme-thumb svg { width: 11px; height: 11px; stroke: var(--v-deep); stroke-width: 2.2; fill: none; transition: opacity .2s; }
+    .tb-theme-sun { opacity: 1; }
+    .tb-theme-moon { position: absolute; opacity: 0; }
+    html.dark .tb-theme-sun { opacity: 0; }
+    html.dark .tb-theme-moon { opacity: 1; }
+
+    /* badge idioma */
+    .tb-lang-badge {
+      background: var(--t-honey); color: var(--v-deep);
+      font-size: .58rem; font-weight: 800; letter-spacing: .5px;
+      padding: .08rem .36rem; border-radius: 99px;
+      margin-top: -.1rem;
+    }
+
+    /* dropdown idioma — abre HACIA ARRIBA */
+    .tb-dropdown {
+      position: absolute; bottom: calc(100% + 8px);
+      left: 50%; transform: translateX(-50%) translateY(6px) scale(.96);
+      min-width: 170px;
+      background: #1a2e12;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      box-shadow: 0 -8px 40px rgba(0,0,0,.55);
+      overflow: hidden;
+      opacity: 0; pointer-events: none;
+      transition: all .22s var(--ease);
+      z-index: 470;
+    }
+    .tb-dropdown.open {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    .tb-dropdown-item {
+      display: flex; align-items: center; gap: .7rem;
+      padding: .8rem 1.1rem; cursor: pointer;
+      font-size: .85rem; font-weight: 500;
+      color: rgba(255,255,255,.75);
+      transition: background .15s;
+    }
+    .tb-dropdown-item:hover { background: rgba(255,255,255,.07); color:#fff; }
+    .tb-dropdown-item.selected { color: var(--t-honey); }
+    .tb-dropdown-item .flag { font-size: 1.1rem; }
+    .tb-dropdown-item .lang-name { flex:1; }
+    .tb-dropdown-item .check { color: var(--t-honey); font-size:.75rem; }
+
+    /* ══════════ PANEL PERFIL ══════════ */
+    .perfil-overlay {
+      position:fixed; inset:0; background:rgba(15,31,10,.5);
+      z-index:350; opacity:0; pointer-events:none; transition:opacity .25s;
+      backdrop-filter:blur(4px);
+    }
+    .perfil-overlay.open { opacity:1; pointer-events:all; }
+    .perfil-panel {
+      position:fixed; top:0; right:-340px; width:320px; height:100vh;
+      background: #111e0c;
+      border-left:1px solid rgba(255,255,255,.08);
+      z-index:360; transition:right .32s var(--ease);
+      display:flex; flex-direction:column;
+      box-shadow:-8px 0 48px rgba(0,0,0,.4);
+    }
+    .perfil-panel.open { right:0; }
+    .perfil-header {
+      padding:1.4rem 1.4rem 1rem;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .perfil-header h3 { color:#fff; font-size:.95rem; font-weight:700; }
+    .perfil-avatar {
+      width:60px; height:60px; border-radius:50%;
+      background: var(--v-mid);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.6rem; margin:1.2rem auto .6rem;
+    }
+    .perfil-name { text-align:center; color:#fff; font-weight:700; font-size:1rem; margin-bottom:.2rem; }
+    .perfil-email { text-align:center; color:rgba(255,255,255,.4); font-size:.8rem; margin-bottom:1.2rem; }
+    .perfil-body { flex:1; overflow-y:auto; padding:.8rem 1.2rem; }
+    .perfil-menu-item {
+      display:flex; align-items:center; gap:.8rem;
+      padding:.75rem .9rem; border-radius:12px;
+      color:rgba(255,255,255,.7); font-size:.88rem; font-weight:500;
+      cursor:pointer; transition:background .15s;
+    }
+    .perfil-menu-item:hover { background:rgba(255,255,255,.06); color:#fff; }
+    .perfil-menu-item svg { width:18px; height:18px; flex-shrink:0; opacity:.7; }
+    .perfil-footer { padding:1rem 1.2rem; border-top:1px solid rgba(255,255,255,.07); }
+    .perfil-login-btn {
+      display:block; width:100%; background:var(--t-warm); color:#fff;
+      border:none; padding:.8rem; border-radius:99px;
+      font-family:inherit; font-size:.9rem; font-weight:700; cursor:pointer;
+      transition:background .2s;
+    }
+    .perfil-login-btn:hover { background:var(--t-sand); }
+
+    /* ══════════ PANEL MENÚ LATERAL ══════════ */
+    .menu-overlay {
+      position:fixed; inset:0; background:rgba(15,31,10,.5);
+      z-index:350; opacity:0; pointer-events:none; transition:opacity .25s;
+      backdrop-filter:blur(4px);
+    }
+    .menu-overlay.open { opacity:1; pointer-events:all; }
+    .menu-panel {
+      position:fixed; top:0; left:-300px; width:280px; height:100vh;
+      background:#111e0c;
+      border-right:1px solid rgba(255,255,255,.08);
+      z-index:360; transition:left .32s var(--ease);
+      display:flex; flex-direction:column;
+      box-shadow:8px 0 48px rgba(0,0,0,.4);
+    }
+    .menu-panel.open { left:0; }
+    .menu-panel-header {
+      padding:1.4rem 1.4rem 1rem;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .menu-panel-header .logo { color:#fff; font-size:1.1rem; font-weight:800; }
+    .menu-panel-header .logo span { color:var(--t-honey); }
+    .menu-panel-body { flex:1; padding:.8rem; overflow-y:auto; }
+    .menu-section-title {
+      font-size:.68rem; font-weight:700; letter-spacing:2px;
+      text-transform:uppercase; color:rgba(255,255,255,.3);
+      padding:.5rem .8rem .3rem;
+    }
+    .menu-link {
+      display:flex; align-items:center; gap:.8rem;
+      padding:.8rem .9rem; border-radius:12px;
+      color:rgba(255,255,255,.75); font-size:.9rem; font-weight:500;
+      text-decoration:none; cursor:pointer; transition:background .15s;
+    }
+    .menu-link:hover { background:rgba(255,255,255,.06); color:#fff; }
+    .menu-link svg { width:18px; height:18px; opacity:.65; flex-shrink:0; }
+    .menu-link .ml-emoji { font-size:1.1rem; width:18px; text-align:center; }
+
+    /* ══════════ HERO ══════════ */
+    .hero {
+      min-height: 96vh;
+      display:flex; align-items:center; justify-content:center;
+      flex-direction:column; text-align:center;
+      padding: 5rem 6% 4rem;
+      position:relative; overflow:hidden;
+      background: var(--v-deep);
+    }
+
+    /* ── Carrusel de fondo ── */
+    .hero-slider {
+      position:absolute; inset:0; z-index:0;
+      display:flex; width:300%; /* 3 slides */
+      animation: heroSlide 12s ease-in-out infinite;
+    }
+    .hero-slide {
+      flex: 0 0 33.333%;
+      background-size:cover; background-position:center;
+      position:relative;
+    }
+    /* overlay oscuro sobre cada imagen para legibilidad */
+    .hero-slide::after {
+      content:''; position:absolute; inset:0;
+      background: rgba(10,20,6,.35);
+    }
+
+    /* flechas laterales */
+    .hero-arrow {
+      position:absolute; top:50%; transform:translateY(-50%);
+      z-index:3; background:rgba(255,255,255,.12);
+      backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.2);
+      color:#fff; width:48px; height:48px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; transition:all .22s; font-size:1.2rem;
+    }
+    .hero-arrow:hover { background:rgba(255,255,255,.25); transform:translateY(-50%) scale(1.08); }
+    .hero-arrow-left  { left:1.8rem; }
+    .hero-arrow-right { right:1.8rem; }
+    @keyframes heroSlide {
+      0%,28%   { transform: translateX(0);         }
+      33%,61%  { transform: translateX(-33.333%);  }
+      66%,94%  { transform: translateX(-66.666%);  }
+      100%     { transform: translateX(0);          }
+    }
+
+    /* indicadores de slide */
+    .hero-dots-nav {
+      position:absolute; bottom:5.5rem; left:50%; transform:translateX(-50%);
+      display:flex; gap:.55rem; z-index:2;
+    }
+    .hero-dot-nav {
+      width:7px; height:7px; border-radius:99px;
+      background:rgba(255,255,255,.3); border:none; cursor:pointer; padding:0;
+      transition: all .4s;
+    }
+    .hero-dot-nav.active { width:22px; background: var(--t-honey); }
+
+    /* capas de atmósfera */
+    .hero-bg {
+      position:absolute; inset:0; pointer-events:none; z-index:1;
+    }
+    .hero-bg-grad {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 70% at 50% 35%, rgba(46,94,26,.35) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 15% 90%, rgba(107,63,31,.20) 0%, transparent 55%);
+    }
+    /* textura orgánica sutil */
+    .hero-bg-tex {
+      position:absolute; inset:0; opacity:.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    /* puntos decorativos */
+    .hero-dots {
+      position:absolute; inset:0; opacity:.06;
+      background-image: radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .hero-inner { position:relative; z-index:2; max-width:780px; }
+
+    .hero-logo-ring {
+      width: 160px; height:160px; border-radius:50%;
+      border: 2px solid rgba(232,200,130,.4);
+      display:flex; align-items:center; justify-content:center;
+      margin: 0 auto 2.8rem;
+      background: rgba(255,255,255,.04);
+      box-shadow:
+        0 0 0 16px rgba(46,94,26,.15),
+        0 0 80px rgba(46,94,26,.4),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+    .hero-logo-ring-inner {
+      display:flex; flex-direction:column; align-items:center;
+      gap:1px;
+    }
+    .hero-logo-ring-inner .l1 {
+      font-size:.85rem; font-weight:700; letter-spacing:3px;
+      color: rgba(255,255,255,.85); text-transform:uppercase;
+    }
+    .hero-logo-ring-inner .l2 {
+      font-size:1.3rem; font-weight:800; letter-spacing:2px;
+      color: var(--t-honey);
+    }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:.5rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius:99px; padding:.38rem 1.1rem;
+      font-size:.75rem; font-weight:600;
+      color: rgba(255,255,255,.6);
+      letter-spacing:.8px; text-transform:uppercase;
+      margin-bottom: 1.8rem;
+    }
+    .hero-badge .dot { width:6px; height:6px; border-radius:50%; background: var(--v-light); }
+
+    .hero h1 {
+      font-size: clamp(3rem,7.5vw,6rem);
+      font-weight:800; color:#fff;
+      letter-spacing:-2.5px; line-height:1.02;
+      margin-bottom: .8rem;
+    }
+    .hero h1 em { font-style:normal; color: var(--t-honey); }
+
+    .hero-slogan {
+      font-size:.82rem; font-weight:600;
+      letter-spacing:4px; text-transform:uppercase;
+      color: rgba(255,255,255,.38);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero p {
+      font-size:1.1rem; color: rgba(255,255,255,.6);
+      line-height:1.8; max-width:520px;
+      margin: 0 auto 2.8rem; font-weight:400;
+    }
+
+    .hero-cta { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; }
+
+    .btn-hero-p {
+      background: var(--c-cream); color: var(--v-dark);
+      padding: .9rem 2.2rem; border-radius:99px;
+      text-decoration:none; font-weight:700; font-size:.95rem;
+      transition: all .25s var(--ease);
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+    .btn-hero-p:hover { background: var(--t-honey); transform:translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
+
+    .btn-hero-s {
+      background: rgba(255,255,255,.08); color: rgba(255,255,255,.82);
+      padding: .9rem 2.2rem; border-radius:99px;
+      text-decoration:none; font-weight:600; font-size:.95rem;
+      border:1px solid rgba(255,255,255,.15);
+      transition: all .25s var(--ease);
+      backdrop-filter: blur(8px);
+    }
+    .btn-hero-s:hover { background: rgba(255,255,255,.16); transform:translateY(-2px); }
+
+    /* scroll hint */
+    .hero-scroll {
+      position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:2;
+      display:flex; flex-direction:column; align-items:center; gap:.5rem;
+      color: rgba(255,255,255,.3); font-size:.72rem; letter-spacing:2px;
+      text-transform:uppercase;
+    }
+    .hero-scroll-line {
+      width:1px; height:40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity:.3; transform:scaleY(1); }
+      50%      { opacity:.8; transform:scaleY(1.1); }
+    }
+
+    /* ══════════ BANDA STATS ══════════ */
+    .stats {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      background: var(--v-dark);
+    }
+    .stat-item {
+      padding:2.2rem 1.5rem; text-align:center;
+      border-right:1px solid rgba(255,255,255,.08);
+    }
+    .stat-item:last-child { border-right:none; }
+    .stat-num {
+      font-size:2rem; font-weight:800;
+      color: var(--t-honey); letter-spacing:-1px;
+      display:block; margin-bottom:.3rem;
+    }
+    .stat-label {
+      font-size:.78rem; font-weight:500;
+      color: rgba(255,255,255,.5); letter-spacing:.5px;
+    }
+
+    /* ══════════ BENEFICIOS ══════════ */
+    .beneficios {
+      background: var(--bg-section);
+      padding: 5rem 6%;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:1.5rem;
+    }
+    .beneficio-card {
+      background: var(--bg-card);
+      border:1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 2rem 1.6rem;
+      text-align:center;
+      box-shadow: var(--sh-sm);
+      transition: all .25s var(--ease);
+    }
+    .beneficio-card:hover { transform:translateY(-4px); box-shadow: var(--sh-md); border-color: var(--v-mist); }
+    .beneficio-icon {
+      width:60px; height:60px; border-radius:18px;
+      display:flex; align-items:center; justify-content:center;
+      margin: 0 auto 1.2rem;
+      font-size:1.8rem;
+    }
+    .bi-verde { background: var(--v-mist); }
+    .bi-tierra { background: #f0e6d6; }
+    .bi-miel   { background: #fdf3dc; }
+    .bi-sage   { background: #e6edd8; }
+    .beneficio-card h3 {
+      font-size:1rem; font-weight:700;
+      color: var(--text-dark); margin-bottom:.4rem; letter-spacing:-.2px;
+    }
+    .beneficio-card p {
+      font-size:.85rem; color: var(--text-light); line-height:1.65;
+    }
+
+    /* ══════════ SECCIÓN TÍTULO ══════════ */
+    .section-head { text-align:center; margin-bottom:3.5rem; }
+    .eyebrow {
+      display:block; font-size:.72rem; font-weight:700;
+      letter-spacing:2.5px; text-transform:uppercase;
+      margin-bottom:.7rem;
+    }
+    .ey-green { color: var(--v-mid); }
+    .ey-honey { color: var(--t-warm); }
+    .ey-light { color: var(--v-light); }
+    .section-head h2 {
+      font-size:clamp(1.9rem,4vw,2.8rem);
+      font-weight:800; letter-spacing:-1px;
+      margin-bottom:.5rem;
+    }
+    .h2-dark { color: var(--text-dark); }
+    .h2-white { color: #fff; }
+    .section-head p { font-size:.95rem; }
+    .p-muted { color: var(--text-light); }
+    .p-faint { color: rgba(255,255,255,.5); }
+    .linea {
+      width:36px; height:3px; border-radius:99px;
+      margin:1rem auto 0;
+    }
+    .linea-green { background: var(--v-sage); }
+    .linea-honey { background: var(--t-honey); }
+
+    /* ══════════ PRODUCTOS ══════════ */
+    .productos { padding:6rem 6%; background: var(--bg-page); }
+
+    .filtros {
+      display:flex; gap:.5rem; justify-content:center;
+      flex-wrap:wrap; margin-bottom:3rem;
+    }
+    .filtro-btn {
+      padding:.45rem 1.2rem; border-radius:99px;
+      border:1.5px solid var(--border);
+      background:transparent; color: var(--text-light);
+      cursor:pointer; font-size:.83rem; font-weight:500;
+      font-family:inherit; transition: all .2s var(--ease);
+    }
+    .filtro-btn.active,
+    .filtro-btn:hover {
+      background: var(--v-dark); color:#fff; border-color: var(--v-dark);
+    }
+
+    .productos-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(265px,1fr));
+      gap:1.5rem;
+    }
+    .producto-card {
+      background: var(--bg-card);
+      border:1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow:hidden; box-shadow: var(--sh-sm);
+      transition: all .28s var(--ease);
+    }
+    .producto-card:hover {
+      transform:translateY(-8px); box-shadow: var(--sh-xl);
+      border-color: var(--v-mist);
+    }
+    .producto-img {
+      height: 300px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: #f0ebe0;
+      padding: 10px 6px 6px;
+    }
+    .producto-img svg.pkg { width: auto; height: 100%; display: block; }
+    .pi-verde  {}
+    .pi-tierra {}
+    .pi-miel   {}
+    .pi-sage   {}
+    .producto-img.has-foto { background: var(--bg-card); padding: 0; }
+    .producto-img.has-foto img { border-radius: 0; }
+    .producto-tag {
+      position:absolute; top:.8rem; left:.8rem;
+      background: var(--v-dark); color: var(--t-honey);
+      font-size:.65rem; font-weight:700; letter-spacing:1px;
+      text-transform:uppercase; padding:.25rem .6rem; border-radius:99px;
+    }
+    .producto-body { padding:1.4rem; }
+    .producto-nombre {
+      font-size:1.05rem; font-weight:700;
+      color: var(--text-dark); margin-bottom:.35rem; letter-spacing:-.2px;
+    }
+    .producto-desc {
+      font-size:.83rem; color: var(--text-light);
+      line-height:1.55; margin-bottom:1.2rem;
+    }
+    .producto-footer { display:flex; align-items:center; justify-content:space-between; }
+    .producto-precio {
+      font-size:1.25rem; font-weight:800;
+      color: var(--v-dark); letter-spacing:-.5px;
+    }
+    .producto-precio span {
+      font-size:.75rem; color: var(--text-light); font-weight:400;
+    }
+    .add-btn {
+      background: var(--v-dark); color:#fff;
+      border:none; padding:.52rem 1.1rem; border-radius:99px;
+      cursor:pointer; font-size:.83rem; font-weight:600;
+      font-family:inherit; transition: all .2s var(--ease);
+    }
+    .add-btn:hover { background: var(--v-mid); transform:scale(1.05); }
+
+    /* ══════════ GALERÍA ══════════ */
+    .galeria { padding:6rem 6%; background: var(--v-deep); }
+
+    .galeria-grid {
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: auto auto;
+      gap:.9rem;
+    }
+    /* layout masonry-like — 5 fotos */
+    .galeria-item:nth-child(1) { grid-column: span 2; }
+
+    .galeria-item {
+      border-radius: var(--r-md); overflow:hidden;
+      cursor:pointer; position:relative;
+      aspect-ratio:4/3;
+      transition: all .3s var(--ease);
+    }
+    .galeria-item:nth-child(1) { aspect-ratio:16/7; }
+
+    .galeria-item:hover { transform:scale(1.025); box-shadow:0 20px 60px rgba(0,0,0,.5); z-index:2; }
+    .galeria-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .galeria-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center; gap:.6rem;
+    }
+    .g-emoji { font-size:3.2rem; }
+    .g-label {
+      color:rgba(255,255,255,.7); font-size:.75rem;
+      letter-spacing:1.5px; text-transform:uppercase; font-weight:600;
+    }
+    .galeria-item .overlay {
+      position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(15,31,10,.8) 0%, transparent 60%);
+      display:flex; align-items:flex-end; padding:1rem 1.2rem;
+      opacity:0; transition: all .3s var(--ease);
+    }
+    .galeria-item:hover .overlay { opacity:1; }
+    .overlay-caption {
+      color:#fff; font-size:.82rem; font-weight:600;
+    }
+
+    /* ══════════ NOSOTROS ══════════ */
+    .nosotros {
+      background: var(--bg-section);
+      padding: 6.5rem 6%;
+      display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center;
+    }
+    .nosotros-texto h2 {
+      font-size:clamp(1.9rem,3.5vw,2.8rem);
+      font-weight:800; color: var(--text-dark);
+      letter-spacing:-1px; margin-bottom:1.4rem; line-height:1.1;
+    }
+    .nosotros-texto h2 em { font-style:normal; color: var(--v-mid); }
+    .nosotros-texto p {
+      color: var(--text-mid); line-height:1.85;
+      margin-bottom:1rem; font-size:.95rem;
+    }
+    .nosotros-tags {
+      display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem;
+    }
+    .tag {
+      background: var(--v-mist); color: var(--v-dark);
+      padding:.35rem .85rem; border-radius:99px;
+      font-size:.78rem; font-weight:600;
+    }
+    .nosotros-visual {
+      position:relative;
+    }
+    .nosotros-card-main {
+      border-radius: var(--r-xl);
+      height:400px;
+      box-shadow: var(--sh-xl);
+      overflow:hidden; position:relative;
+    }
+    .nosotros-card-main img {
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      display:block;
+    }
+    /* tarjeta flotante */
+    .nosotros-chip {
+      position:absolute; bottom:-1.5rem; right:-1.5rem;
+      background: var(--bg-card); border:1px solid var(--border);
+      border-radius: var(--r-md); padding:1.1rem 1.4rem;
+      box-shadow: var(--sh-lg);
+      display:flex; align-items:center; gap:.8rem;
+    }
+    .nosotros-chip .chip-icon { font-size:1.8rem; }
+    .nosotros-chip .chip-text .ct1 { font-size:.72rem; color: var(--text-light); font-weight:500; }
+    .nosotros-chip .chip-text .ct2 { font-size:.95rem; font-weight:800; color: var(--v-dark); }
+
+    /* ══════════ CONTACTO ══════════ */
+    .contacto { background: var(--v-deep); padding:6rem 6%; text-align:center; }
+    .contacto h2 { font-size:clamp(1.9rem,4vw,2.8rem); font-weight:800; color:#fff; letter-spacing:-1px; margin-bottom:.8rem; }
+    .contacto > p { color:rgba(255,255,255,.5); margin-bottom:3rem; font-size:.95rem; }
+    .contacto-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:1rem; max-width:780px; margin:0 auto 2.5rem;
+    }
+    .contacto-item {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+      border-radius: var(--r-md); padding:1.8rem 1.4rem;
+      text-decoration:none; color:rgba(255,255,255,.82);
+      transition: all .25s var(--ease);
+    }
+    .contacto-item:hover {
+      background:rgba(255,255,255,.1); transform:translateY(-4px);
+      border-color:rgba(255,255,255,.18);
+    }
+    .contacto-item .icon { font-size:1.8rem; margin-bottom:.8rem; display:flex; justify-content:center; }
+    .contacto-item .icon svg, .contacto-item .icon img { width:48px; height:48px; }
+    .contacto-item h4 { font-size:.95rem; font-weight:700; margin-bottom:.3rem; }
+    .contacto-item p { font-size:.82rem; color:rgba(255,255,255,.45); margin:0; }
+    .redes { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .red-btn {
+      display:flex; align-items:center; gap:.6rem;
+      background:rgba(255,255,255,.07); color:rgba(255,255,255,.85);
+      padding:.65rem 1.5rem; border-radius:99px; text-decoration:none;
+      font-weight:600; font-size:.875rem;
+      border:1px solid rgba(255,255,255,.12);
+      transition: all .2s var(--ease);
+    }
+    .red-btn svg { width:22px; height:22px; flex-shrink:0; }
+    .red-btn:hover { background:rgba(255,255,255,.16); transform:translateY(-2px); }
+
+    /* ══════════ FOOTER ══════════ */
+    footer {
+      background: #080e05;
+      border-top:1px solid rgba(255,255,255,.05);
+      color:rgba(255,255,255,.28);
+      text-align:center; padding:2rem 6%;
+      font-size:.8rem;
+    }
+    .footer-logo-img {
+      width:64px; height:64px; border-radius:50%; object-fit:cover;
+      margin-bottom:.75rem; opacity:.9;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,.5));
+    }
+    footer span { color: var(--t-sand); }
+
+    /* ══════════ CARRITO LATERAL ══════════ */
+    .cart-overlay {
+      position:fixed; inset:0; background:rgba(15,31,10,.55);
+      z-index:300; opacity:0; pointer-events:none;
+      transition:opacity .3s; backdrop-filter:blur(4px);
+    }
+    .cart-overlay.open { opacity:1; pointer-events:all; }
+    .cart-panel {
+      position:fixed; top:0; right:-440px;
+      width:440px; max-width:100vw;
+      height:calc(100vh - 64px); /* respeta barra inferior */
+      background: var(--bg-card); z-index:450;
+      display:flex; flex-direction:column;
+      transition:right .35s var(--ease);
+      box-shadow:-8px 0 60px rgba(15,31,10,.25);
+    }
+    .cart-panel.open { right:0; }
+    /* Ocultar elementos que interfieren cuando el carrito está abierto */
+    body.cart-open .wa-float { display:none !important; }
+    body.cart-open .sticky-cart { display:none !important; }
+    .cart-header {
+      background: var(--v-dark); color:#fff;
+      padding:1.2rem 1.4rem;
+      display:flex; align-items:center; justify-content:space-between;
+      flex-shrink:0;
+    }
+    .cart-header h3 { font-size:1.05rem; font-weight:700; }
+    .close-btn { background:none; border:none; color:rgba(255,255,255,.65); font-size:1.8rem; cursor:pointer; line-height:1; transition:color .2s; }
+    .close-btn:hover { color:#fff; }
+    .cart-items { flex:1; overflow-y:auto; padding:1rem 1.4rem; }
+    .cart-empty { text-align:center; color: var(--text-light); padding:3rem 0; }
+    .cart-empty .empty-icon { font-size:2.5rem; margin-bottom:.8rem; }
+    .cart-item { display:flex; align-items:center; gap:1rem; padding:.9rem 0; border-bottom:1px solid var(--border); }
+    .cart-item-icon { font-size:1.8rem; width:44px; text-align:center; flex-shrink:0; }
+    .cart-item-info { flex:1; min-width:0; }
+    .cart-item-name { font-weight:700; color: var(--text-dark); font-size:.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cart-item-price { color: var(--v-mid); font-size:.85rem; font-weight:600; }
+    .qty-controls { display:flex; align-items:center; gap:.4rem; flex-shrink:0; }
+    .qty-btn {
+      background: var(--c-cream); border:1px solid var(--border);
+      width:28px; height:28px; border-radius:50%;
+      cursor:pointer; font-size:1rem;
+      display:flex; align-items:center; justify-content:center;
+      transition: all .2s; font-family:inherit;
+    }
+    .qty-btn:hover { background: var(--v-dark); color:#fff; border-color: var(--v-dark); }
+    .qty-num { font-weight:700; min-width:22px; text-align:center; font-size:.9rem; }
+    .remove-item { background:none; border:none; color: var(--border); cursor:pointer; font-size:1.1rem; transition:color .2s; flex-shrink:0; }
+    .remove-item:hover { color:#ef4444; }
+    .cart-footer {
+      padding:1rem 1.4rem 1.2rem;
+      border-top:2px solid var(--border);
+      flex-shrink:0;
+      background: var(--bg-card);
+    }
+    .cart-total { display:flex; justify-content:space-between; font-size:1.15rem; font-weight:800; color: var(--text-dark); margin-bottom:.9rem; }
+    .whatsapp-btn {
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      width:100%; background:#25d366; color:#fff;
+      padding:.85rem; border-radius:99px; text-decoration:none;
+      font-weight:700; font-size:.9rem; transition: all .2s; margin-bottom:.6rem;
+    }
+    .whatsapp-btn:hover { background:#1ebe5c; transform:translateY(-1px); }
+    .checkout-cta-btn {
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      width:100%; background: #e8202c; color:#fff;
+      border:none; padding:1rem; border-radius:99px;
+      font-size:.95rem; font-weight:800; cursor:pointer;
+      font-family:inherit; transition: all .2s; margin-top:.5rem;
+      box-shadow: 0 4px 16px rgba(232,32,44,.35);
+    }
+    .checkout-cta-btn:hover { background: var(--v-mid); transform:translateY(-1px); }
+
+    /* ══════════ LIGHTBOX ══════════ */
+    .lightbox {
+      position:fixed; inset:0; background:rgba(0,0,0,.94);
+      z-index:600; display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+      backdrop-filter:blur(10px);
+    }
+    .lightbox.open { opacity:1; pointer-events:all; }
+    .lightbox-inner { max-width:90vw; max-height:85vh; position:relative; display:flex; align-items:center; justify-content:center; }
+    .lightbox-img { max-width:100%; max-height:80vh; border-radius: var(--r-md); font-size:8rem; display:flex; align-items:center; justify-content:center; min-width:300px; min-height:300px; }
+    .lightbox-close { position:absolute; top:-2.5rem; right:0; background:none; border:none; color:rgba(255,255,255,.65); font-size:2rem; cursor:pointer; transition:color .2s; }
+    .lightbox-close:hover { color:#fff; }
+    .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.15); color:#fff; font-size:1.5rem; width:44px; height:44px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; transition: all .2s; }
+    .lightbox-nav:hover { background:rgba(255,255,255,.25); }
+    .lightbox-prev { left:-4rem; }
+    .lightbox-next { right:-4rem; }
+    .lightbox-caption { position:absolute; bottom:-2.5rem; left:0; right:0; text-align:center; color:rgba(255,255,255,.55); font-size:.85rem; }
+
+    /* ══════════ MODAL CHECKOUT ══════════ */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(15,31,10,.65);
+      z-index:600; display:flex; align-items:center; justify-content:center;
+      opacity:0; pointer-events:none; transition:opacity .3s; padding:1rem;
+      backdrop-filter:blur(6px);
+    }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+    .modal {
+      background: var(--bg-card); border-radius: var(--r-xl);
+      width:100%; max-width:520px; max-height:calc(100vh - 80px); overflow-y:auto;
+      box-shadow: var(--sh-xl);
+      transform:translateY(24px) scale(.98); transition:transform .3s var(--ease);
+    }
+    .modal-overlay.open .modal { transform:translateY(0) scale(1); }
+    .modal-header { background: var(--v-dark); color:#fff; padding:1.4rem 1.6rem; border-radius: var(--r-xl) var(--r-xl) 0 0; display:flex; align-items:center; justify-content:space-between; }
+    .modal-header h3 { font-size:1.05rem; font-weight:700; }
+    .modal-body { padding:1.8rem; }
+    .modal-body h4 { font-weight:700; color: var(--text-dark); margin-bottom:1rem; font-size:.95rem; }
+    .resumen-item { display:flex; justify-content:space-between; padding:.5rem 0; border-bottom:1px solid var(--c-cream); font-size:.9rem; }
+    .resumen-total { display:flex; justify-content:space-between; padding:1rem 0 0; font-weight:800; font-size:1.1rem; color: var(--v-dark); }
+    .form-group { margin-bottom:.9rem; }
+    .form-group label { display:block; font-size:.8rem; font-weight:600; color: var(--text-dark); margin-bottom:.38rem; }
+    .form-group input, .form-group select { width:100%; padding:.72rem 1rem; border:1.5px solid var(--border); border-radius: var(--r-sm); font-size:.88rem; font-family:inherit; transition:border-color .2s; outline:none; background: var(--bg-card); color: var(--text-dark); }
+    .form-group input:focus, .form-group select:focus { border-color: var(--v-mid); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .divider { border:none; border-top:1.5px solid var(--c-cream); margin:1.4rem 0; }
+    .metodos-pago { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-bottom:1rem; }
+    .metodo-btn { border:1.5px solid var(--border); border-radius: var(--r-md); padding:1rem; text-align:center; cursor:pointer; transition: all .2s; background: var(--bg-card); }
+    .metodo-btn.selected { border-color: var(--v-dark); background:rgba(28,58,16,.05); }
+    .metodo-btn .m-icon { font-size:1.6rem; margin-bottom:.4rem; }
+    .metodo-btn .m-nombre { font-size:.82rem; font-weight:700; color: var(--text-dark); }
+    .metodo-btn .m-sub { font-size:.72rem; color: var(--text-light); }
+    .flow-badge { display:flex; align-items:center; justify-content:center; gap:.5rem; background: var(--c-cream); border-radius: var(--r-sm); padding:.75rem; margin-bottom:1.2rem; font-size:.82rem; color: var(--text-light); }
+    .flow-badge strong { color: var(--v-dark); }
+    .pagar-btn { display:block; width:100%; background: var(--v-dark); color:#fff; border:none; padding:1rem; border-radius:99px; font-size:.95rem; font-weight:700; cursor:pointer; font-family:inherit; transition: all .2s; margin-top:.5rem; }
+    .pagar-btn:hover { background: var(--v-mid); transform:translateY(-1px); }
+    .pagar-btn:disabled { background:#aaa; cursor:not-allowed; transform:none; }
+    .seguridad { display:flex; align-items:center; justify-content:center; gap:.4rem; font-size:.75rem; color: var(--text-light); margin-top:.8rem; }
+
+    /* ══════════ TOAST ══════════ */
+    .toast {
+      position:fixed; bottom:2rem; left:50%;
+      transform:translateX(-50%) translateY(100px);
+      background: var(--v-dark); color:#fff;
+      padding:.75rem 1.6rem; border-radius:99px;
+      font-size:.875rem; font-weight:500; z-index:800;
+      transition:transform .35s var(--ease); white-space:nowrap;
+      box-shadow: var(--sh-lg); border:1px solid rgba(255,255,255,.08);
+    }
+    .toast.show { transform:translateX(-50%) translateY(0); }
+
+    /* ══════════ STICKY CART BAR ══════════ */
+    .sticky-cart {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 450;
+      padding: .8rem 1.2rem;
+      /* se oculta cuando el carrito está vacío */
+      transform: translateY(110%);
+      transition: transform .4s cubic-bezier(.25,.46,.45,.94);
+      pointer-events: none;
+      display: flex; justify-content: center;
+    }
+    .sticky-cart.visible {
+      transform: translateY(0);
+      pointer-events: all;
+    }
+    .sticky-cart-inner {
+      width: 100%; max-width: 560px;
+      background: var(--v-dark);
+      border-radius: 20px;
+      padding: .85rem 1.2rem .85rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 -4px 40px rgba(15,31,10,.35), 0 8px 32px rgba(15,31,10,.25);
+      border: 1px solid rgba(255,255,255,.10);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .sticky-cart-inner:hover { background: var(--v-mid); transform: translateY(-2px); }
+    .sticky-cart-inner:active { transform: scale(.98); }
+
+    .sc-badge {
+      background: var(--t-honey); color: var(--v-deep);
+      font-size: .75rem; font-weight: 800;
+      min-width: 26px; height: 26px; border-radius: 99px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 .4rem; flex-shrink: 0;
+      letter-spacing: -.3px;
+    }
+    .sc-label {
+      flex: 1;
+      color: rgba(255,255,255,.9);
+      font-size: .92rem; font-weight: 600;
+    }
+    .sc-label span { color: rgba(255,255,255,.5); font-weight: 400; font-size: .82rem; }
+    .sc-total {
+      color: var(--t-honey);
+      font-size: 1.05rem; font-weight: 800;
+      letter-spacing: -.5px; flex-shrink: 0;
+    }
+    .sc-arrow {
+      color: rgba(255,255,255,.4);
+      font-size: 1.1rem; flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .sticky-cart-inner:hover .sc-arrow { transform: translateX(3px); }
+
+    /* Espacio para bottom-toolbar fija (64px aprox) */
+    body { padding-bottom: 64px; }
+
+    /* sticky cart sube sobre la toolbar */
+    .sticky-cart { bottom: 68px; }
+
+    /* Empuja el footer para que el sticky-bar no lo tape */
+    body.cart-has-items footer { padding-bottom: 5rem; }
+
+    /* ══════════ WHATSAPP FLOTANTE ══════════ */
+    .wa-float {
+      position:fixed; bottom:calc(64px + 1cm); right:1.5rem;
+      z-index:500; display:flex; align-items:flex-end; gap:.75rem;
+    }
+    .wa-tooltip {
+      background: var(--text-dark); color:#fff;
+      padding:.5rem 1rem; border-radius:99px;
+      font-size:.8rem; font-weight:500; white-space:nowrap;
+      box-shadow: var(--sh-md); border:1px solid rgba(255,255,255,.08);
+      opacity:0; transform:translateX(8px);
+      transition: all .25s var(--ease); pointer-events:none;
+      margin-bottom:.5rem;
+    }
+    .wa-float:hover .wa-tooltip { opacity:1; transform:translateX(0); }
+    .wa-btn {
+      width:58px; height:58px; border-radius:20px;
+      display:flex; align-items:center; justify-content:center;
+      background: linear-gradient(145deg,#2ecc71 0%,#25d366 50%,#128C7E 100%);
+      box-shadow: 0 4px 24px rgba(37,211,102,.45);
+      animation: waPulse 2.8s ease-in-out infinite;
+      transition: all .25s var(--ease); text-decoration:none; flex-shrink:0;
+    }
+    .wa-btn:hover { transform:scale(1.12) translateY(-3px); box-shadow:0 10px 36px rgba(37,211,102,.55); }
+    .wa-btn svg { width:28px; height:28px; }
+    @keyframes waPulse {
+      0%,100% { box-shadow:0 4px 24px rgba(37,211,102,.45), 0 0 0 0 rgba(37,211,102,.4); }
+      55%      { box-shadow:0 4px 24px rgba(37,211,102,.45), 0 0 0 14px rgba(37,211,102,.0); }
+    }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width:900px) {
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right:none; }
+      .nosotros { grid-template-columns:1fr; gap:3rem; }
+      .nosotros-card-main { height:260px; }
+      .nosotros-chip { bottom:-.8rem; right:-.8rem; }
+      .galeria-grid { grid-template-columns:repeat(2,1fr); }
+      .galeria-item:nth-child(1),
+      .galeria-item:nth-child(6) { grid-column:span 1; aspect-ratio:4/3; }
+    }
+    @media (max-width:640px) {
+      .nav-links { display:none; }
+      .toolbar { padding:0 3.5%; }
+      .tb-btn span:not(.tb-lang-badge) { display:none; } /* ocultar texto, solo iconos */
+      .cart-panel { width:100vw; }
+      .lightbox-prev { left:-2.5rem; }
+      .lightbox-next { right:-2.5rem; }
+      .form-row { grid-template-columns:1fr; }
+      .stats { grid-template-columns:repeat(2,1fr); }
+      .galeria-grid { grid-template-columns:1fr; }
+      .galeria-item:nth-child(1),
+      .galeria-item:nth-child(6) { grid-column:span 1; aspect-ratio:4/3; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV SUPERIOR -->
+<div class="topbar">
+  <nav>
+    <a class="nav-logo" href="#">
+      <img src="fotos/ChatGPT Image 2 jul 2026, 00_40_55.png" alt="Nativa Sur">
+      <div class="nav-logo-text">Nativa <span>Sur</span></div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="cart-btn" onclick="toggleCart()">
+      🛒 Mi pedido
+      <div id="cart-count">0</div>
+    </button>
+  </nav>
+</div>
+
+<!-- BOTTOM TOOLBAR -->
+<div class="bottom-toolbar" id="bottom-toolbar">
+
+  <!-- Menú -->
+  <button class="tb-btn" onclick="toggleMenu()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round">
+      <line x1="3" y1="6"  x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+    Menú
+  </button>
+
+  <div class="tb-sep"></div>
+
+  <!-- Ubicación -->
+  <button class="tb-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+      <circle cx="12" cy="9" r="2.5"/>
+    </svg>
+    Despacho
+  </button>
+
+  <div class="tb-sep"></div>
+
+  <!-- Idioma -->
+  <button class="tb-btn" id="lang-btn" onclick="toggleLangDropdown()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+    </svg>
+    <span class="tb-lang-badge" id="lang-badge">ES</span>
+    <!-- Dropdown hacia arriba -->
+    <div class="tb-dropdown" id="lang-dropdown">
+      <div class="tb-dropdown-item selected" onclick="setLang('ES','🇨🇱',event)">
+        <span class="flag">🇨🇱</span><span class="lang-name">Español</span><span class="check">✓</span>
+      </div>
+      <div class="tb-dropdown-item" onclick="setLang('EN','🇺🇸',event)">
+        <span class="flag">🇺🇸</span><span class="lang-name">English</span><span class="check" style="opacity:0">✓</span>
+      </div>
+      <div class="tb-dropdown-item" onclick="setLang('PT','🇧🇷',event)">
+        <span class="flag">🇧🇷</span><span class="lang-name">Português</span><span class="check" style="opacity:0">✓</span>
+      </div>
+    </div>
+  </button>
+
+  <div class="tb-sep"></div>
+
+  <!-- Tema oscuro/claro -->
+  <button class="tb-btn" onclick="toggleTheme()" id="theme-btn" aria-label="Cambiar tema">
+    <div class="tb-theme-track">
+      <div class="tb-theme-thumb">
+        <!-- Sol -->
+        <svg class="tb-theme-sun" viewBox="0 0 24 24" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2"  x2="12" y2="4"/>
+          <line x1="12" y1="20" x2="12" y2="22"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="2" y1="12" x2="4" y2="12"/>
+          <line x1="20" y1="12" x2="22" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Luna -->
+        <svg class="tb-theme-moon" viewBox="0 0 24 24" stroke-linecap="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </div>
+    </div>
+    Tema
+  </button>
+
+  <div class="tb-sep"></div>
+
+  <!-- Perfil -->
+  <button class="tb-btn" onclick="togglePerfil()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    Mi cuenta
+  </button>
+
+</div>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Carrusel de fondo -->
+  <div class="hero-slider" id="hero-slider">
+    <div class="hero-slide" style="background-image:url('fotos/Imagen de Menú principal 1.png')"></div>
+    <div class="hero-slide" style="background-image:url('fotos/Imagen de Menú principal 2.png')"></div>
+    <div class="hero-slide" style="background-image:url('fotos/Imagen de Menú principal 3.png')"></div>
+  </div>
+
+  <div class="hero-bg">
+    <div class="hero-bg-grad"></div>
+    <div class="hero-bg-tex"></div>
+    <div class="hero-dots"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-logo-ring">
+      <img src="fotos/ChatGPT Image 2 jul 2026, 00_40_55.png" alt="Nativa Sur"
+           style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Importado directamente · Sin intermediarios
+    </div>
+    <h1>Frutos Secos<br><em>Naturaleza Pura</em></h1>
+    <p class="hero-slogan">Calidad Premium · Chile</p>
+    <p>Seleccionamos los mejores frutos secos del mundo y los traemos directamente a ti. Energía natural, sabor auténtico, precio justo.</p>
+    <div class="hero-cta">
+      <a href="#productos" class="btn-hero-p">Ver productos</a>
+      <a href="#contacto" class="btn-hero-s">Contáctanos</a>
+    </div>
+  </div>
+  <!-- Flechas laterales -->
+  <button class="hero-arrow hero-arrow-left" onclick="goSlide((window._heroSlide+2)%3)" aria-label="Anterior">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="hero-arrow hero-arrow-right" onclick="goSlide((window._heroSlide+1)%3)" aria-label="Siguiente">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <!-- Indicadores de slide -->
+  <div class="hero-dots-nav">
+    <button class="hero-dot-nav active" onclick="goSlide(0)"></button>
+    <button class="hero-dot-nav"        onclick="goSlide(1)"></button>
+    <button class="hero-dot-nav"        onclick="goSlide(2)"></button>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Descubrir
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item"><span class="stat-num">12+</span><span class="stat-label">Productos Premium</span></div>
+  <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label">Natural · Sin aditivos</span></div>
+  <div class="stat-item"><span class="stat-num">15</span><span class="stat-label">Regiones de Chile</span></div>
+  <div class="stat-item"><span class="stat-num">🌿</span><span class="stat-label">Directo del Origen</span></div>
+</div>
+
+
+<!-- PRODUCTOS -->
+<section class="productos" id="productos">
+  <div class="section-head">
+    <span class="eyebrow ey-green">Catálogo</span>
+    <h2 class="h2-dark">Nuestros Productos</h2>
+    <p class="p-muted">Calidad premium directo a tu mesa</p>
+    <div class="linea linea-green"></div>
+  </div>
+  <div class="filtros">
+    <button class="filtro-btn active" onclick="filtrar(this,'todos')">Todos</button>
+    <button class="filtro-btn" onclick="filtrar(this,'nueces')">Nueces</button>
+    <button class="filtro-btn" onclick="filtrar(this,'semillas')">Semillas</button>
+    <button class="filtro-btn" onclick="filtrar(this,'mix')">Mix</button>
+    <button class="filtro-btn" onclick="filtrar(this,'frutas')">Frutas secas</button>
+  </div>
+  <div class="productos-grid" id="productos-grid"></div>
+</section>
+
+<!-- GALERÍA -->
+<section class="galeria" id="galeria">
+  <div class="section-head">
+    <span class="eyebrow ey-light">Galería</span>
+    <h2 class="h2-white">Nuestra Selección</h2>
+    <p class="p-faint">Naturaleza en cada producto</p>
+    <div class="linea linea-honey"></div>
+  </div>
+  <div class="galeria-grid" id="galeria-grid"></div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="nosotros" id="nosotros">
+  <div class="nosotros-texto">
+    <h2>Somos <em>Nativa Sur</em></h2>
+    <p>Una empresa chilena apasionada por los frutos secos de calidad. Importamos directamente desde los mejores productores del mundo para garantizarte frescura y sabor en cada bocado.</p>
+    <p>Creemos que comer bien no tiene que ser complicado. Por eso llevamos lo mejor de la naturaleza directamente a tu puerta, con precios justos y trato cercano.</p>
+    <p>Con presencia en la Región de O'Higgins y Santiago, enviamos a todo Chile.</p>
+    <div class="nosotros-tags">
+      <span class="tag">🌿 100% Natural</span>
+      <span class="tag">🌍 Importado</span>
+      <span class="tag">🚀 Todo Chile</span>
+      <span class="tag">💚 Sin aditivos</span>
+    </div>
+  </div>
+  <div class="nosotros-visual">
+    <div class="nosotros-card-main">
+      <img src="fotos/Somos Nativa Sur.png" alt="Somos Nativa Sur">
+    </div>
+    <div class="nosotros-chip">
+      <div class="chip-icon">📦</div>
+      <div class="chip-text">
+        <div class="ct1">Envío disponible</div>
+        <div class="ct2">Todo Chile 🇨🇱</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contacto" id="contacto">
+  <span class="eyebrow ey-light">Contacto</span>
+  <h2>Hablemos</h2>
+  <p>Escríbenos por WhatsApp, redes sociales o correo. Respondemos rápido.</p>
+  <div class="contacto-grid">
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/56984476659?text=Hola%20Nativa%20Sur%2C%20me%20interesan%20sus%20productos%20%F0%9F%8C%BF" class="contacto-item" target="_blank" rel="noopener">
+      <div class="icon">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="#25D366"/>
+          <path fill="#fff" d="M24 10.5C16.544 10.5 10.5 16.544 10.5 24c0 2.356.638 4.56 1.75 6.465L10.5 37.5l7.256-1.722A13.43 13.43 0 0024 37.5c7.456 0 13.5-6.044 13.5-13.5S31.456 10.5 24 10.5zm7.07 18.617c-.298.84-1.747 1.607-2.407 1.712-.616.097-1.394.137-2.25-.141a20.5 20.5 0 01-2.038-.753c-3.584-1.548-5.927-5.15-6.107-5.39-.18-.24-1.47-1.956-1.47-3.731s.93-2.65 1.26-3.012c.33-.36.72-.45.96-.45l.69.012c.222.01.52-.084.813.62.3.72 1.02 2.49 1.11 2.67.09.18.15.39.03.63-.12.24-.18.39-.36.6-.18.21-.378.47-.54.63-.18.18-.367.375-.158.735.21.36.933 1.539 2.003 2.493 1.375 1.226 2.534 1.605 2.894 1.785.36.18.57.15.78-.09.21-.24.9-1.05 1.14-1.41.24-.36.48-.3.81-.18.33.12 2.1 0.99 2.46 1.17.36.18.6.27.69.42.09.153.09.87-.21 1.71z"/>
+        </svg>
+      </div>
+      <h4>WhatsApp</h4>
+      <p>+56 9 8447 6659</p>
+    </a>
+
+    <!-- Gmail -->
+    <a href="mailto:ignaciocabezascontreras@gmail.com" class="contacto-item">
+      <div class="icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <path fill="#4caf50" d="M45 16.2l-5 2.75-5 4.75V40h7a3 3 0 003-3z"/>
+          <path fill="#1e88e5" d="M3 16.2l3.5 2.75L13 23.7V40H6a3 3 0 01-3-3z"/>
+          <path fill="#e53935" d="M35 11.2l-11 8.3-11-8.3-1 5.8 1 6.7 11 8.3 11-8.3 1-6.7z"/>
+          <path fill="#c62828" d="M3 12.298V16.2l10 7.5V11.2H6a3.01 3.01 0 00-3 3.098z"/>
+          <path fill="#fbc02d" d="M45 12.298V16.2l-10 7.5V11.2h7a3.01 3.01 0 013 3.098z"/>
+        </svg>
+      </div>
+      <h4>Gmail</h4>
+      <p>ignaciocabezascontreras@gmail.com</p>
+    </a>
+
+    <!-- Ubicación -->
+    <a href="#" class="contacto-item">
+      <div class="icon">
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="24" fill="rgba(255,255,255,.1)"/>
+          <path fill="#8fb87a" d="M24 10c-5.523 0-10 4.477-10 10 0 7.5 10 18 10 18s10-10.5 10-18c0-5.523-4.477-10-10-10zm0 13.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/>
+        </svg>
+      </div>
+      <h4>Cobertura</h4>
+      <p>O'Higgins · Santiago · Todo Chile</p>
+    </a>
+
+  </div>
+
+  <div class="redes">
+    <!-- Instagram -->
+    <a href="#" class="red-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
+            <stop offset="0%" stop-color="#fdf497"/>
+            <stop offset="5%" stop-color="#fdf497"/>
+            <stop offset="45%" stop-color="#fd5949"/>
+            <stop offset="60%" stop-color="#d6249f"/>
+            <stop offset="90%" stop-color="#285AEB"/>
+          </radialGradient>
+        </defs>
+        <rect width="48" height="48" rx="12" fill="url(#ig-grad)"/>
+        <rect x="13" y="13" width="22" height="22" rx="6" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="24" cy="24" r="5.5" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <circle cx="32" cy="16" r="1.5" fill="#fff"/>
+      </svg>
+      Instagram
+    </a>
+
+    <!-- Facebook -->
+    <a href="#" class="red-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="10" fill="#1877F2"/>
+        <path fill="#fff" d="M32 24h-5v-3c0-1.38.28-2 2-2h3v-5h-4c-4 0-6 2.24-6 6v4h-4v5h4v13h5V29h4l1-5z"/>
+      </svg>
+      Facebook
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="fotos/ChatGPT Image 2 jul 2026, 00_40_55.png" alt="Nativa Sur" class="footer-logo-img">
+  <p>© 2025 <span>Nativa Sur</span> — Frutos Secos · Naturaleza Pura · Hecho con ❤️ en Chile</p>
+</footer>
+
+<!-- CARRITO -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-header">
+    <h3>🛒 Mi Pedido</h3>
+    <button class="close-btn" onclick="toggleCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty"><div class="empty-icon">🌰</div><p>Tu pedido está vacío</p></div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cart-total">$0</span></div>
+    <a id="whatsapp-link" href="#" class="whatsapp-btn" target="_blank">
+      <svg width="18" height="18" viewBox="0 0 32 32" fill="white"><path d="M16.003 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.37.635 4.594 1.742 6.516L2.667 29.333l6.99-1.72A13.27 13.27 0 0 0 16.003 29.333C23.37 29.333 29.333 23.364 29.333 16S23.37 2.667 16.003 2.667zm0 2.4c5.99 0 10.93 4.94 10.93 10.933s-4.94 10.933-10.93 10.933a10.9 10.9 0 0 1-5.573-1.527l-.397-.238-4.148 1.02 1.052-3.994-.261-.414A10.89 10.89 0 0 1 5.07 16c0-5.993 4.94-10.933 10.933-10.933zm-3.09 4.8c-.247 0-.65.093-.99.463-.34.37-1.3 1.27-1.3 3.096s1.33 3.59 1.516 3.838c.185.247 2.59 4.117 6.375 5.612 3.786 1.495 3.786 1.003 4.47.94.685-.062 2.22-.91 2.534-1.786.314-.876.314-1.627.22-1.784-.093-.155-.34-.247-.71-.432-.37-.185-2.22-1.095-2.563-1.218-.34-.124-.587-.186-.834.185-.247.37-.957 1.218-1.173 1.465-.216.247-.432.278-.803.093-.37-.185-1.563-.576-2.978-1.84-1.1-.98-1.843-2.192-2.059-2.563-.216-.37-.023-.57.163-.755.167-.165.37-.432.555-.648.186-.216.247-.37.37-.617.124-.247.062-.463-.031-.648-.093-.185-.803-2.02-1.12-2.754-.308-.712-.625-.617-.834-.617-.216 0-.463-.03-.71-.03z"/></svg>
+      Pedir por WhatsApp
+    </a>
+    <button class="checkout-cta-btn" onclick="abrirCheckout()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4H4V8h16v2zM4 18v-4h16v4H4z"/></svg>
+      Pagar con tarjeta · Flow
+    </button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightboxBtn()">×</button>
+    <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+    <div class="lightbox-img" id="lightbox-img"></div>
+    <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- MODAL CHECKOUT -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>🛍 Finalizar pedido</h3>
+      <button class="close-btn" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <h4>Resumen de tu pedido</h4>
+      <div id="resumen-items"></div>
+      <div class="resumen-total"><span>Total a pagar</span><span id="resumen-total-val"></span></div>
+      <hr class="divider">
+      <h4>Datos de envío</h4>
+      <div class="form-row">
+        <div class="form-group"><label>Nombre</label><input type="text" id="f-nombre" placeholder="Tu nombre"/></div>
+        <div class="form-group"><label>Apellido</label><input type="text" id="f-apellido" placeholder="Tu apellido"/></div>
+      </div>
+      <div class="form-group"><label>Email</label><input type="email" id="f-email" placeholder="correo@ejemplo.com" value="ignaciocabezascontreras@gmail.com"/></div>
+      <div class="form-group"><label>Teléfono</label><input type="tel" id="f-telefono" placeholder="+56 9 XXXX XXXX"/></div>
+      <div class="form-group"><label>Dirección de entrega</label><input type="text" id="f-direccion" placeholder="Calle, número, depto."/></div>
+      <div class="form-row">
+        <div class="form-group"><label>Ciudad</label><input type="text" id="f-ciudad" placeholder="Santiago"/></div>
+        <div class="form-group">
+          <label>Región</label>
+          <select id="f-region">
+            <option value="">Selecciona...</option>
+            <option>Región Metropolitana</option><option>O'Higgins</option>
+            <option>Valparaíso</option><option>Biobío</option>
+            <option>La Araucanía</option><option>Maule</option>
+            <option>Coquimbo</option><option>Atacama</option>
+            <option>Antofagasta</option><option>Tarapacá</option>
+            <option>Los Lagos</option><option>Los Ríos</option>
+            <option>Aysén</option><option>Magallanes</option>
+            <option>Arica y Parinacota</option><option>Ñuble</option>
+          </select>
+        </div>
+      </div>
+      <hr class="divider">
+      <h4>Método de pago</h4>
+      <div class="flow-badge">🔒 <span>Pagos seguros por <strong>Flow.cl</strong> · Webpay Plus</span></div>
+      <div class="metodos-pago">
+        <div class="metodo-btn selected" onclick="seleccionarPago(this,'webpay')">
+          <div class="m-icon">💳</div><div class="m-nombre">Débito / Crédito</div><div class="m-sub">Webpay Plus</div>
+        </div>
+        <div class="metodo-btn" onclick="seleccionarPago(this,'transferencia')">
+          <div class="m-icon">🏦</div><div class="m-nombre">Transferencia</div><div class="m-sub">Banco Chile / BCI</div>
+        </div>
+      </div>
+      <div id="info-transferencia" style="display:none;background:var(--c-cream);border-radius:var(--r-sm);padding:1rem;margin-bottom:1rem;font-size:.87rem;color:var(--text-mid);line-height:1.75;">
+        <strong>Datos de transferencia:</strong><br>
+        Banco: <strong>Banco de Chile</strong><br>
+        Nombre: <strong>Ignacio Cabezas C.</strong><br>
+        Cuenta corriente: <strong>XXXXXXXXXX</strong><br>
+        RUT: <strong>XX.XXX.XXX-X</strong><br>
+        Email: <strong>ignaciocabezascontreras@gmail.com</strong><br><br>
+        Envía tu comprobante al email o WhatsApp para coordinar el despacho.
+      </div>
+      <button class="pagar-btn" id="pagar-btn" onclick="procesarPago()">Pagar con Flow</button>
+      <div class="seguridad">🔒 Pago 100% seguro · SSL cifrado</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- PANEL MENÚ LATERAL -->
+<div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
+<div class="menu-panel" id="menu-panel">
+  <div class="menu-panel-header">
+    <div class="logo" style="display:flex;align-items:center;gap:.5rem;">
+      <img src="fotos/ChatGPT Image 2 jul 2026, 00_40_55.png" alt="Nativa Sur"
+           style="height:36px;width:36px;border-radius:50%;object-fit:cover;">
+      <span>Nativa <span style="color:var(--t-honey)">Sur</span></span>
+    </div>
+    <button class="close-btn" onclick="toggleMenu()">×</button>
+  </div>
+  <div class="menu-panel-body">
+    <div class="menu-section-title">Navegación</div>
+    <a class="menu-link" href="#productos" onclick="toggleMenu()">
+      <span class="ml-emoji">🌰</span> Productos
+    </a>
+    <a class="menu-link" href="#galeria" onclick="toggleMenu()">
+      <span class="ml-emoji">📸</span> Galería
+    </a>
+    <a class="menu-link" href="#nosotros" onclick="toggleMenu()">
+      <span class="ml-emoji">🌿</span> Nosotros
+    </a>
+    <a class="menu-link" href="#contacto" onclick="toggleMenu()">
+      <span class="ml-emoji">📱</span> Contacto
+    </a>
+    <div class="menu-section-title" style="margin-top:.8rem;">Pedidos</div>
+    <div class="menu-link" onclick="toggleMenu();toggleCart();">
+      <span class="ml-emoji">🛒</span> Mi pedido
+    </div>
+    <a class="menu-link" href="https://wa.me/56984476659" target="_blank" onclick="toggleMenu()">
+      <span class="ml-emoji">💬</span> WhatsApp directo
+    </a>
+  </div>
+</div>
+
+<!-- PANEL PERFIL -->
+<div class="perfil-overlay" id="perfil-overlay" onclick="togglePerfil()"></div>
+<div class="perfil-panel" id="perfil-panel">
+  <div class="perfil-header">
+    <h3>Mi cuenta</h3>
+    <button class="close-btn" onclick="togglePerfil()">×</button>
+  </div>
+  <div style="padding:0 1.2rem 1rem;">
+    <div class="perfil-avatar">🌿</div>
+    <div class="perfil-name">Bienvenido</div>
+    <div class="perfil-email">Inicia sesión para guardar tus pedidos</div>
+  </div>
+  <div class="perfil-body">
+    <div class="perfil-menu-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Mis pedidos
+    </div>
+    <div class="perfil-menu-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Mi perfil
+    </div>
+    <div class="perfil-menu-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>
+      Direcciones guardadas
+    </div>
+    <div class="perfil-menu-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      Notificaciones
+    </div>
+  </div>
+  <div class="perfil-footer">
+    <button class="perfil-login-btn">Iniciar sesión</button>
+  </div>
+</div>
+
+<!-- STICKY CART BAR -->
+<div class="sticky-cart" id="sticky-cart" onclick="toggleCart()">
+  <div class="sticky-cart-inner">
+    <div class="sc-badge" id="sc-count">0</div>
+    <div class="sc-label">Ver mi pedido <span>· toca para revisar</span></div>
+    <div class="sc-total" id="sc-total">$0</div>
+    <div class="sc-arrow">›</div>
+  </div>
+</div>
+
+<!-- WHATSAPP FLOTANTE -->
+<div class="wa-float">
+  <div class="wa-tooltip">¡Escríbenos por WhatsApp!</div>
+  <a class="wa-btn"
+     href="https://wa.me/56984476659?text=Hola%20Nativa%20Sur%2C%20me%20interesan%20sus%20productos%20%F0%9F%8C%BF"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Contactar por WhatsApp">
+    <svg viewBox="0 0 32 32" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.003 2.667C8.636 2.667 2.667 8.636 2.667 16c0 2.37.635 4.594 1.742 6.516L2.667 29.333l6.99-1.72A13.27 13.27 0 0 0 16.003 29.333C23.37 29.333 29.333 23.364 29.333 16S23.37 2.667 16.003 2.667zm0 2.4c5.99 0 10.93 4.94 10.93 10.933s-4.94 10.933-10.93 10.933a10.9 10.9 0 0 1-5.573-1.527l-.397-.238-4.148 1.02 1.052-3.994-.261-.414A10.89 10.89 0 0 1 5.07 16c0-5.993 4.94-10.933 10.933-10.933zm-3.09 4.8c-.247 0-.65.093-.99.463-.34.37-1.3 1.27-1.3 3.096s1.33 3.59 1.516 3.838c.185.247 2.59 4.117 6.375 5.612 3.786 1.495 3.786 1.003 4.47.94.685-.062 2.22-.91 2.534-1.786.314-.876.314-1.627.22-1.784-.093-.155-.34-.247-.71-.432-.37-.185-2.22-1.095-2.563-1.218-.34-.124-.587-.186-.834.185-.247.37-.957 1.218-1.173 1.465-.216.247-.432.278-.803.093-.37-.185-1.563-.576-2.978-1.84-1.1-.98-1.843-2.192-2.059-2.563-.216-.37-.023-.57.163-.755.167-.165.37-.432.555-.648.186-.216.247-.37.37-.617.124-.247.062-.463-.031-.648-.093-.185-.803-2.02-1.12-2.754-.308-.712-.625-.617-.834-.617-.216 0-.463-.03-.71-.03z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  const WA = '56984476659';
+
+  // Mapa fijo de fotos y estilos por ID de producto (el admin no edita fotos aún)
+  const PROD_META = {
+    1:  { fruto:'almendra', bg:'pi-verde',  foto:'fotos/Imagen Almendras.png' },
+    2:  { fruto:'nuez',     bg:'pi-tierra', foto:'fotos/Imagen de nueces.png' },
+    3:  { fruto:'maranon',  bg:'pi-miel',   foto:'fotos/Castaña de Cajú.png' },
+    4:  { fruto:'pistacho', bg:'pi-sage',   foto:'fotos/Imagen pistacho.jpg' },
+    5:  { fruto:'chia',     bg:'pi-verde',  foto:'fotos/Chía.png' },
+    6:  { fruto:'girasol',  bg:'pi-miel',   foto:'fotos/Imagen Semillas de maravilla.png' },
+    7:  { fruto:'zapallo',  bg:'pi-tierra', foto:'fotos/Imagen Semillas de Zapallo.png' },
+    8:  { fruto:'mix',      bg:'pi-sage',   foto:'fotos/Mix Energético.png' },
+    9:  { fruto:'mix',      bg:'pi-verde',  foto:'fotos/Mix Deluxe.png' },
+    10: { fruto:'arandano', bg:'pi-tierra', foto:'fotos/Cranberries.png' },
+    11: { fruto:'mix',      bg:'pi-miel',   foto:'fotos/Coco Laminado.png' },
+    12: { fruto:'pasa',     bg:'pi-sage',   foto:'fotos/Pasas Rubias.png' },
+    13: { fruto:'pasa',     bg:'pi-tierra', foto:'fotos/Pasas Morenas.png' },
+    14: { fruto:'mani',     bg:'pi-miel',   foto:'fotos/Maní.png' },
+    15: { fruto:'datil',    bg:'pi-verde',  foto:'fotos/Dátiles.png' },
+  };
+
+  let PRODUCTOS = [];
+
+  async function cargarProductosDesdeAPI() {
+    try {
+      const r = await fetch('/api/productos');
+      if (!r.ok) throw new Error('API no disponible');
+      const data = await r.json();
+      PRODUCTOS = data.map(p => ({
+        ...p,
+        desc:   p.descripcion || '',
+        foto:   p.imagen || (PROD_META[p.id] && PROD_META[p.id].foto) || '',
+        fruto:  (PROD_META[p.id] && PROD_META[p.id].fruto) || 'mix',
+        bg:     (PROD_META[p.id] && PROD_META[p.id].bg)    || 'pi-verde',
+      }));
+    } catch {
+      // Fallback estático si la API no responde
+      PRODUCTOS = [
+        { id:1,  nombre:'Almendras Premium',   fruto:'almendra', precio:4990, categoria:'nueces',   bg:'pi-verde',  foto:'fotos/Imagen Almendras.png',               desc:'Almendras naturales sin sal, importadas de California. 500g.' },
+        { id:2,  nombre:'Nueces de Castilla',  fruto:'nuez',     precio:5990, categoria:'nueces',   bg:'pi-tierra', foto:'fotos/Imagen de nueces.png',               desc:'Nueces enteras de primera selección. Excelentes para repostería. 500g.' },
+        { id:3,  nombre:'Marañón / Cajú',      fruto:'maranon',  precio:6490, categoria:'nueces',   bg:'pi-miel',   foto:'fotos/Castaña de Cajú.png',               desc:'Marañón tostado y ligeramente salado. Snack irresistible. 400g.' },
+        { id:4,  nombre:'Pistachos Naturales', fruto:'pistacho', precio:7990, categoria:'nueces',   bg:'pi-sage',   foto:'fotos/Imagen pistacho.jpg',                desc:'Pistachos con cáscara, naturales sin aditivos. 400g.' },
+        { id:5,  nombre:'Semillas de Chía',    fruto:'chia',     precio:2990, categoria:'semillas', bg:'pi-verde',  foto:'fotos/Chía.png',                           desc:'Semillas de chía orgánicas, ricas en omega-3 y fibra. 400g.' },
+        { id:6,  nombre:'Semillas de Girasol', fruto:'girasol',  precio:1990, categoria:'semillas', bg:'pi-miel',   foto:'fotos/Imagen Semillas de maravilla.png',   desc:'Pipas de girasol peladas, naturales y nutritivas. 400g.' },
+        { id:7,  nombre:'Semillas de Zapallo', fruto:'zapallo',  precio:3490, categoria:'semillas', bg:'pi-tierra', foto:'fotos/Imagen Semillas de Zapallo.png',     desc:'Semillas de zapallo (pepitas), fuente de zinc y proteínas. 400g.' },
+        { id:8,  nombre:'Mix Energético',      fruto:'mix',      precio:5490, categoria:'mix',      bg:'pi-sage',   foto:'fotos/Mix Energético.png',                 desc:'Mezcla de almendras, nueces, maní y pasas. Ideal para deporte. 500g.' },
+        { id:9,  nombre:'Mix Deluxe',          fruto:'mix',      precio:7490, categoria:'mix',      bg:'pi-verde',  foto:'fotos/Mix Deluxe.png',                     desc:'Almendras, macadamia, pistachos y arándanos deshidratados. 500g.' },
+        { id:10, nombre:'Arándanos Deshidrat.',fruto:'arandano', precio:4490, categoria:'frutas',   bg:'pi-tierra', foto:'fotos/Cranberries.png',                    desc:'Arándanos deshidratados sin azúcar añadida. 300g.' },
+        { id:11, nombre:'Coco Laminado',       fruto:'mix',      precio:3990, categoria:'frutas',   bg:'pi-miel',   foto:'fotos/Coco Laminado.png',                  desc:'Coco laminado natural, crujiente y sin azúcar añadida. 300g.' },
+        { id:12, nombre:'Pasas Rubias',        fruto:'pasa',     precio:2490, categoria:'frutas',   bg:'pi-sage',   foto:'fotos/Pasas Rubias.png',                   desc:'Pasas rubias importadas, jugosas y naturalmente dulces. 500g.' },
+        { id:13, nombre:'Pasas Morenas',       fruto:'pasa',     precio:2490, categoria:'frutas',   bg:'pi-tierra', foto:'fotos/Pasas Morenas.png',                  desc:'Pasas morenas naturales, intensas en sabor y ricas en hierro. 500g.' },
+        { id:14, nombre:'Maní Natural',        fruto:'mani',     precio:1990, categoria:'nueces',   bg:'pi-miel',   foto:'fotos/Maní.png',                           desc:'Maní tostado sin sal, fuente de proteínas y grasas saludables. 500g.' },
+        { id:15, nombre:'Dátiles Medjool',     fruto:'datil',    precio:8990, categoria:'frutas',   bg:'pi-verde',  foto:'fotos/Dátiles.png',                        desc:'Dátiles Medjool premium, naturalmente dulces y energizantes. 400g.' },
+      ];
+    }
+    renderProductos('todos');
+    renderGaleria();
+  }
+
+  const GALERIA = [
+    { foto:'fotos/Galeria Almendra.png',    caption:'Almendras Premium · California' },
+    { foto:'fotos/Galería Nuez.webp',       caption:'Nueces de Castilla · Primera selección' },
+    { foto:'fotos/Galeria pistachos.webp',  caption:'Pistachos Naturales · Sin aditivos' },
+    { foto:'fotos/Galería Chía.webp',       caption:'Semillas de Chía · Orgánica' },
+    { foto:'fotos/Galería Coco.jpg',                    caption:'Coco Laminado · Natural' },
+    { foto:'fotos/Galería semillas de zapallo.webp',    caption:'Semillas de Zapallo · Fuente de zinc' },
+    { foto:'fotos/Galería Pasas Morenas.webp',          caption:'Pasas Morenas · Ricas en hierro' },
+  ];
+
+  let lightboxIdx = 0;
+
+  function renderGaleria() {
+    document.getElementById('galeria-grid').innerHTML = GALERIA.map((g,i) => `
+      <div class="galeria-item" onclick="openLightbox(${i})">
+        <img src="${g.foto}" alt="${g.caption}" loading="lazy">
+        <div class="overlay"><span class="overlay-caption">${g.caption}</span></div>
+      </div>`
+    ).join('');
+  }
+
+  function openLightbox(idx) {
+    lightboxIdx = idx; renderLightboxSlide();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function renderLightboxSlide() {
+    const g = GALERIA[lightboxIdx];
+    const img = document.getElementById('lightbox-img');
+    img.style.cssText = '';
+    img.innerHTML = `<img src="${g.foto}" alt="${g.caption}" style="max-width:100%;max-height:80vh;border-radius:12px;object-fit:contain;">`;
+    document.getElementById('lightbox-caption').textContent = g.caption;
+  }
+  function lightboxNav(dir) { lightboxIdx=(lightboxIdx+dir+GALERIA.length)%GALERIA.length; renderLightboxSlide(); }
+  function closeLightbox(e) { if(e.target===document.getElementById('lightbox')) closeLightboxBtn(); }
+  function closeLightboxBtn() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
+  document.addEventListener('keydown', e => {
+    if(!document.getElementById('lightbox').classList.contains('open')) return;
+    if(e.key==='ArrowLeft') lightboxNav(-1);
+    if(e.key==='ArrowRight') lightboxNav(1);
+    if(e.key==='Escape') closeLightboxBtn();
+  });
+
+  let carrito={}, metodoPago='webpay';
+  const fmtP = n => '$'+n.toLocaleString('es-CL');
+
+  // ─── Logo Nativa Sur — fiel al original ─────────────────────────────────
+  // viewBox 0 0 200 200, se usa embebido dentro del SVG de la bolsa
+  function logoSVG(uid) {
+    return `
+      <circle cx="100" cy="100" r="96" fill="#f2ead6" stroke="#1c3a0e" stroke-width="7"/>
+      <circle cx="100" cy="100" r="88" fill="none" stroke="#1c3a0e" stroke-width="1" opacity=".2"/>
+      <!-- arco dorado superior -->
+      <path d="M46 62 Q100 18 154 62" fill="none" stroke="#c9a46e" stroke-width="4.5" stroke-linecap="round"/>
+      <!-- hoja izq grande oscura -->
+      <path d="M100 96 C84 88 68 74 72 50 C78 60 86 76 92 90 Z" fill="#1c3a0e"/>
+      <!-- hoja izq media -->
+      <path d="M100 96 C88 84 78 68 80 48 C84 58 90 74 96 88 Z" fill="#2a5010" opacity=".9"/>
+      <!-- hoja der sage -->
+      <path d="M100 96 C116 88 132 74 128 50 C122 60 114 76 108 90 Z" fill="#3d6828" opacity=".85"/>
+      <!-- hoja der clara -->
+      <path d="M100 96 C112 84 122 68 120 48 C116 58 110 74 104 88 Z" fill="#5a8040" opacity=".75"/>
+      <!-- almendra central -->
+      <path d="M100 38 C110 52 113 70 111 84 C109 94 100 100 100 100 C100 100 91 94 89 84 C87 70 90 52 100 38Z" fill="#a0622a"/>
+      <path d="M100 38 C96 52 93 70 91 84 C91 92 100 100 100 100 C100 100 95 92 94 82 C92 68 94 52 100 38Z" fill="#d4a060" opacity=".45"/>
+      <line x1="100" y1="40" x2="100" y2="98" stroke="#6b3f1f" stroke-width="1.5" opacity=".3"/>
+      <path d="M96 54 Q100 51 104 54" fill="none" stroke="#6b3f1f" stroke-width="1" opacity=".25"/>
+      <path d="M95 65 Q100 62 105 65" fill="none" stroke="#6b3f1f" stroke-width="1" opacity=".25"/>
+      <path d="M95 76 Q100 73 105 76" fill="none" stroke="#6b3f1f" stroke-width="1" opacity=".25"/>
+      <path d="M96 87 Q100 84 104 87" fill="none" stroke="#6b3f1f" stroke-width="1" opacity=".25"/>
+      <!-- puntos dorados -->
+      <circle cx="24" cy="120" r="4" fill="#c9a46e"/>
+      <circle cx="176" cy="120" r="4" fill="#c9a46e"/>
+      <!-- NATIVA -->
+      <text x="100" y="140" text-anchor="middle"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="26" font-weight="700" letter-spacing="5" fill="#1c3a0e">NATIVA</text>
+      <!-- —SUR— -->
+      <text x="100" y="160" text-anchor="middle"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="17" font-weight="600" letter-spacing="4" fill="#c9a46e">—SUR—</text>
+      <!-- hoja/gota inferior -->
+      <ellipse cx="100" cy="170" rx="4" ry="6" fill="#1c3a0e" opacity=".55"/>
+      <!-- subtítulo en arco -->
+      <path id="arc${uid}" d="M28 182 A78 78 0 0 0 172 182" fill="none"/>
+      <text font-family="Georgia,serif" font-size="9" letter-spacing="2" fill="#1c3a0e" opacity=".6">
+        <textPath href="#arc${uid}" startOffset="50%" text-anchor="middle">FRUTOS SECOS · NATURALEZA PURA</textPath>
+      </text>`;
+  }
+
+  // ─── Textura fotorrealista de frutos (ventana de la bolsa) ───────────────
+  function frutosTextura(p, uid) {
+    const W = 200, H = 90;
+    const cfg = {
+      almendra: { bg:'#c0a878', cols:['#d4b890','#c8a87c','#e0c8a0','#b89870','#dcc0a0'], sh:'alm' },
+      nuez:     { bg:'#8a6040', cols:['#a07858','#8a6040','#b48c6a','#785030','#c0946e'], sh:'nz'  },
+      maranon:  { bg:'#c09050', cols:['#d4a860','#c09050','#e0bc70','#b08040','#ccaa68'], sh:'mrn' },
+      pistacho: { bg:'#b8b080', cols:['#ccc890','#b8b480','#dcd8a0','#a8a470','#d0cc98'], sh:'pst' },
+      chia:     { bg:'#504038', cols:['#685040','#504038','#786050','#403028','#604848'], sh:'ch'  },
+      girasol:  { bg:'#c0a840', cols:['#d4bc50','#c0a840','#e0cc60','#a89030','#ccb848'], sh:'gs'  },
+      zapallo:  { bg:'#708848', cols:['#849c54','#708848','#96ae60','#607838','#7a9850'], sh:'zp'  },
+      arandano: { bg:'#483858', cols:['#584868','#483858','#685878','#382848','#584060'], sh:'ar'  },
+      mango:    { bg:'#d89028', cols:['#eca030','#d89028','#f0b040','#c68020','#e8a838'], sh:'mg'  },
+      pasa:     { bg:'#5a3828', cols:['#6a4838','#5a3828','#7a5848','#4a2818','#704038'], sh:'ps'  },
+      mix:      { bg:'#b09060', cols:['#d4b890','#a07858','#ccc890','#d4a860','#b48c6a'], sh:'mx'  },
+      mani:     { bg:'#c8a060', cols:['#dcb870','#c8a060','#e8cc80','#b08840','#d4b468'], sh:'alm' },
+      datil:    { bg:'#7a4820', cols:['#8a5830','#7a4820','#9a6840','#6a3810','#906040'], sh:'ps'  },
+    };
+    const c = cfg[p.fruto] || cfg.mix;
+
+    function shape(sh, x, y, w, h, col, rot) {
+      const g = `rotate(${rot} ${x} ${y})`;
+      if (sh==='alm') return `<g transform="${g}"><path d="M${x} ${y-h} C${x+w*.6} ${y-h*.4} ${x+w*.7} ${y+h*.4} ${x} ${y+h} C${x-w*.7} ${y+h*.4} ${x-w*.6} ${y-h*.4} ${x} ${y-h}Z" fill="${col}"/><path d="M${x} ${y-h} C${x-w*.15} ${y-h*.3} ${x-w*.2} ${y+h*.3} ${x} ${y+h}" fill="#fff" opacity=".2"/><line x1="${x}" y1="${y-h}" x2="${x}" y2="${y+h}" stroke="#6b3f1f" stroke-width=".5" opacity=".2"/></g>`;
+      if (sh==='nz')  return `<g transform="${g}"><ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h}" fill="${col}"/><path d="M${x-w} ${y} Q${x} ${y-h*.7} ${x+w} ${y}" fill="none" stroke="#5a3010" stroke-width=".7" opacity=".35"/><path d="M${x-w*.8} ${y+h*.2} Q${x} ${y+h*.9} ${x+w*.8} ${y+h*.2}" fill="none" stroke="#5a3010" stroke-width=".5" opacity=".25"/></g>`;
+      if (sh==='mrn') return `<g transform="${g}"><path d="M${x-w*.8} ${y+h*.4} C${x-w*.6} ${y-h} ${x+w*.4} ${y-h} ${x+w} ${y} C${x+w} ${y+h*.6} ${x+w*.2} ${y+h} ${x-w*.8} ${y+h*.4}Z" fill="${col}"/></g>`;
+      if (sh==='pst') return `<g transform="${g}"><path d="M${x} ${y-h} C${x+w*.8} ${y-h*.5} ${x+w*.8} ${y+h*.5} ${x} ${y+h} C${x-w*.8} ${y+h*.5} ${x-w*.8} ${y-h*.5} ${x} ${y-h}Z" fill="${col}"/><line x1="${x}" y1="${y-h}" x2="${x}" y2="${y+h}" stroke="#4a7838" stroke-width="${w*.3}" opacity=".55"/><ellipse cx="${x}" cy="${y}" rx="${w*.55}" ry="${h*.4}" fill="#7ab050" opacity=".5"/></g>`;
+      if (sh==='ch')  return `<ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h*.6}" fill="${col}" transform="${g}"/>`;
+      if (sh==='gs')  return `<g transform="${g}"><ellipse cx="${x}" cy="${y}" rx="${w}" ry="${h*.65}" fill="${col}"/><line x1="${x-w*.7}" y1="${y}" x2="${x+w*.7}" y2="${y}" stroke="#887020" stroke-width=".6" opacity=".4"/></g>`;
+      if (sh==='zp')  return `<g transform="${g}"><path d="M${x} ${y-h} C${x+w*.7} ${y-h*.3} ${x+w*.5} ${y+h} ${x} ${y+h} C${x-w*.5} ${y+h} ${x-w*.7} ${y-h*.3} ${x} ${y-h}Z" fill="${col}"/></g>`;
+      if (sh==='ar')  return `<g transform="${g}"><circle cx="${x}" cy="${y}" r="${w}" fill="${col}"/><circle cx="${x-w*.3}" cy="${y-h*.3}" r="${w*.3}" fill="#fff" opacity=".15"/></g>`;
+      if (sh==='mg')  return `<g transform="${g}"><rect x="${x-w}" y="${y-h*.5}" width="${w*2}" height="${h}" rx="${h*.3}" fill="${col}"/><line x1="${x-w*.8}" y1="${y}" x2="${x+w*.8}" y2="${y}" stroke="#a06810" stroke-width=".5" opacity=".3"/></g>`;
+      if (sh==='ps')  return `<g transform="${g}"><circle cx="${x}" cy="${y}" r="${w*.9}" fill="${col}"/><circle cx="${x-w*.25}" cy="${y-h*.25}" r="${w*.3}" fill="#fff" opacity=".1"/></g>`;
+      // mix
+      const ss = ['alm','nz','pst','mrn'];
+      return shape(ss[(Math.abs(x+y|0))%ss.length], x, y, w, h, col, rot);
+    }
+
+    let out = `<rect width="${W}" height="${H}" fill="${c.bg}"/>`;
+    // capa trasera más pequeña y oscura
+    for (let i = 0; i < 50; i++) {
+      const x = 3  + ((i*47+p.id*13)%(W-6));
+      const y = 2  + ((i*31+p.id*7) %(H-4));
+      const w = 4  + ((i*11+p.id*3) %5);
+      const h = w * (.5+((i*7+p.id)%4)*.1);
+      const r = (i*43+p.id*17)%180;
+      const col = c.cols[(i+p.id)%c.cols.length];
+      out += shape(c.sh, x, y, w, h, col, r);
+    }
+    // capa delantera más grande y clara
+    for (let i = 0; i < 35; i++) {
+      const x = 3  + ((i*67+p.id*23)%(W-6));
+      const y = 2  + ((i*53+p.id*19)%(H-4));
+      const w = 6  + ((i*13+p.id*5) %6);
+      const h = w * (.5+((i*9+p.id) %4)*.1);
+      const r = (i*37+p.id*11)%180;
+      const col = c.cols[(i*2+p.id)%c.cols.length];
+      out += shape(c.sh, x, y, w, h, col, r);
+    }
+    // oscuridad en bordes
+    out += `<rect width="${W}" height="${H}" fill="url(#wfade${uid})"/>`;
+    return out;
+  }
+
+  // ─── SVG bolsa kraft completo — igual formato que la imagen ─────────────
+  function pkgSVG(p) {
+    const uid = `u${p.id}`;
+    // viewBox fijo 220×370 — proporciones de la bolsa kraft real
+    const VW = 220, VH = 370;
+    const gr = {nueces:'500g', semillas:'400g', mix:'500g', frutas:'300g'}[p.categoria]||'500g';
+
+    // coordenadas de la bolsa (forma real: más ancha abajo)
+    const bx1=22, bx2=198, by1=20, by2=358;
+    const mx = VW/2;
+
+    return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg" class="pkg"
+      style="filter:drop-shadow(0 10px 24px rgba(0,0,0,.28))">
+      <defs>
+        <linearGradient id="kf${uid}" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#b07840"/>
+          <stop offset="8%"   stop-color="#c89050"/>
+          <stop offset="28%"  stop-color="#e2b870"/>
+          <stop offset="50%"  stop-color="#f0c880"/>
+          <stop offset="72%"  stop-color="#e2b870"/>
+          <stop offset="92%"  stop-color="#c89050"/>
+          <stop offset="100%" stop-color="#a86c38"/>
+        </linearGradient>
+        <linearGradient id="sL${uid}" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"  stop-color="#000" stop-opacity=".28"/>
+          <stop offset="22%" stop-color="#000" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="sR${uid}" x1="100%" y1="0%" x2="0%" y2="0%">
+          <stop offset="0%"  stop-color="#000" stop-opacity=".22"/>
+          <stop offset="22%" stop-color="#000" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="sB${uid}" x1="0%" y1="40%" x2="0%" y2="100%">
+          <stop offset="0%"   stop-color="#000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000" stop-opacity=".22"/>
+        </linearGradient>
+        <linearGradient id="sh${uid}" x1="0%" y1="0%" x2="60%" y2="60%">
+          <stop offset="0%"   stop-color="#fff" stop-opacity=".16"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="bc${uid}">
+          <path d="M ${bx1} ${by1} L ${bx2} ${by1} L ${bx2+6} 26 L ${bx2+8} ${by2-10}
+            Q ${bx2+6} ${by2} ${mx} ${by2+4}
+            Q ${bx1-6} ${by2} ${bx1-8} ${by2-10}
+            L ${bx1-6} 26 Z"/>
+        </clipPath>
+        <clipPath id="wc${uid}">
+          <rect x="${bx1+4}" y="252" width="${VW-56}" height="90" rx="5"/>
+        </clipPath>
+        <radialGradient id="wfade${uid}" cx="50%" cy="50%" r="55%">
+          <stop offset="50%"  stop-color="#000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000" stop-opacity=".4"/>
+        </radialGradient>
+      </defs>
+
+      <!-- sombra base -->
+      <ellipse cx="${mx}" cy="${VH-3}" rx="80" ry="8" fill="#000" opacity=".16"/>
+
+      <!-- ── CUERPO BOLSA ── -->
+      <path d="M ${bx1} ${by1} L ${bx2} ${by1} L ${bx2+6} 26 L ${bx2+8} ${by2-10}
+        Q ${bx2+6} ${by2} ${mx} ${by2+4}
+        Q ${bx1-6} ${by2} ${bx1-8} ${by2-10}
+        L ${bx1-6} 26 Z"
+        fill="url(#kf${uid})"/>
+
+      <!-- sombras laterales -->
+      <rect x="0" y="0" width="${VW}" height="${VH}" clip-path="url(#bc${uid})" fill="url(#sL${uid})"/>
+      <rect x="0" y="0" width="${VW}" height="${VH}" clip-path="url(#bc${uid})" fill="url(#sR${uid})"/>
+      <rect x="0" y="0" width="${VW}" height="${VH}" clip-path="url(#bc${uid})" fill="url(#sB${uid})"/>
+      <!-- brillo -->
+      <rect x="0" y="0" width="${VW}" height="${VH}" clip-path="url(#bc${uid})" fill="url(#sh${uid})"/>
+
+      <!-- ── CIERRE ZIP ── -->
+      <rect x="${bx1-2}" y="12" width="${VW-38}" height="12" rx="6" fill="#c08848" opacity=".75"/>
+      <rect x="${bx1+4}" y="15" width="${VW-50}" height="6"  rx="3" fill="#000"    opacity=".08"/>
+      ${Array.from({length:16},(_,i)=>`<rect x="${bx1+3+i*10}" y="13" width="6" height="9" rx="2" fill="#a07030" opacity=".4"/>`).join('')}
+
+      <!-- pliegue central sutil -->
+      <line x1="${mx}" y1="26" x2="${mx}" y2="${by2-4}" stroke="#000" stroke-width="1" opacity=".04"/>
+
+      <!-- ── LOGO NATIVA SUR ── -->
+      <g transform="translate(${mx-70}, 24)">
+        <svg viewBox="0 0 200 200" width="140" height="140">
+          ${logoSVG(uid)}
+        </svg>
+      </g>
+
+      <!-- ── TEXTOS ── -->
+      <text x="${mx}" y="176" text-anchor="middle"
+        font-family="Georgia,serif" font-size="14" font-weight="700"
+        letter-spacing="1.5" fill="#1c3a0e">${p.nombre.toUpperCase()}</text>
+      <text x="${mx}" y="192" text-anchor="middle"
+        font-family="Georgia,serif" font-size="11.5" font-weight="400"
+        letter-spacing=".8" fill="#2c1a0e" opacity=".7">${gr} e</text>
+      <text x="${mx}" y="207" text-anchor="middle"
+        font-family="Georgia,serif" font-size="9" font-weight="500"
+        letter-spacing="3" fill="#1c3a0e" opacity=".55">ORIGEN NATURAL</text>
+
+      <!-- ── VENTANA ── -->
+      <!-- marco -->
+      <rect x="${bx1+4}" y="222" width="${VW-56}" height="120" rx="7"
+        fill="#b89060" opacity=".18"/>
+      <rect x="${bx1+4}" y="222" width="${VW-56}" height="120" rx="7"
+        fill="none" stroke="#906830" stroke-width="1.4" opacity=".3"/>
+
+      <!-- frutos dentro -->
+      <g clip-path="url(#wc${uid})">
+        <svg x="${bx1+4}" y="252" viewBox="0 0 ${VW-56} 90"
+          width="${VW-56}" height="90">
+          ${frutosTextura(p, uid)}
+        </svg>
+      </g>
+
+      <!-- reflejo vidrio -->
+      <path d="M${bx1+6} 224 Q${bx1+22} 220 ${bx1+38} 224 L${bx1+38} 234 Q${bx1+22} 230 ${bx1+6} 234 Z"
+        fill="#fff" opacity=".16"/>
+    </svg>`;
+  }
+
+  function renderProductos(filtro='todos') {
+    const lista = filtro==='todos' ? PRODUCTOS : PRODUCTOS.filter(p=>p.categoria===filtro);
+    document.getElementById('productos-grid').innerHTML = lista.map(p=>`
+      <div class="producto-card">
+        <div class="producto-img ${p.foto ? 'has-foto' : ''} ${p.bg}">
+          ${p.foto
+            ? `<img src="${p.foto}" alt="${p.nombre}" loading="lazy" style="width:100%;height:100%;object-fit:contain;object-position:center;padding:4px;">`
+            : pkgSVG(p)
+          }
+          <span class="producto-tag">${p.categoria}</span>
+        </div>
+        <div class="producto-body">
+          <div class="producto-nombre">${p.nombre}</div>
+          <div class="producto-desc">${p.desc}</div>
+          <div class="producto-footer">
+            <div class="producto-precio">${fmtP(p.precio)} <span>/ unidad</span></div>
+            <button class="add-btn" onclick="agregarAlCarrito(${p.id})">+ Agregar</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function filtrar(btn,cat) {
+    document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active'); renderProductos(cat);
+  }
+
+  function agregarAlCarrito(id) {
+    const p = PRODUCTOS.find(p=>p.id===id); if(!p) return;
+    carrito[id] = carrito[id] ? {...carrito[id], qty:carrito[id].qty+1} : {...p, qty:1};
+    actualizarCarrito(); showToast('✅ '+p.nombre+' agregado');
+  }
+  function cambiarQty(id,d) {
+    if(!carrito[id]) return; carrito[id].qty+=d;
+    if(carrito[id].qty<=0) delete carrito[id]; actualizarCarrito();
+  }
+  function eliminarItem(id) { delete carrito[id]; actualizarCarrito(); }
+
+  function actualizarCarrito() {
+    const items=Object.values(carrito);
+    const total=items.reduce((s,i)=>s+i.precio*i.qty,0);
+    const count=items.reduce((s,i)=>s+i.qty,0);
+    document.getElementById('cart-count').textContent=count;
+    document.getElementById('cart-total').textContent=fmtP(total);
+    // sticky bar
+    const sc=document.getElementById('sticky-cart');
+    document.getElementById('sc-count').textContent=count;
+    document.getElementById('sc-total').textContent=fmtP(total);
+    if(count>0){ sc.classList.add('visible'); document.body.classList.add('cart-has-items'); }
+    else{ sc.classList.remove('visible'); document.body.classList.remove('cart-has-items'); }
+    const c=document.getElementById('cart-items');
+    c.innerHTML = items.length===0
+      ? '<div class="cart-empty"><div class="empty-icon">🌰</div><p>Tu pedido está vacío</p></div>'
+      : items.map(i=>`
+        <div class="cart-item">
+          <div class="cart-item-icon"><img src="${i.foto}" style="width:36px;height:36px;object-fit:contain;border-radius:8px;background:#fff"></div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${i.nombre}</div>
+            <div class="cart-item-price">${fmtP(i.precio*i.qty)}</div>
+          </div>
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="cambiarQty(${i.id},-1)">−</button>
+            <span class="qty-num">${i.qty}</span>
+            <button class="qty-btn" onclick="cambiarQty(${i.id},+1)">+</button>
+          </div>
+          <button class="remove-item" onclick="eliminarItem(${i.id})">🗑</button>
+        </div>`).join('');
+    const txt=items.length===0
+      ? 'Hola%20Nativa%20Sur,%20quiero%20ver%20los%20productos'
+      : 'Hola%20Nativa%20Sur!%20Quiero%20hacer%20el%20siguiente%20pedido:%0A'
+        +items.map(i=>`- ${i.qty}x ${i.nombre}: ${fmtP(i.precio*i.qty)}`).join('%0A')
+        +`%0A%0A*Total: ${fmtP(total)}*`;
+    document.getElementById('whatsapp-link').href=`https://wa.me/${WA}?text=${txt}`;
+  }
+
+  function toggleCart() {
+    const panel = document.getElementById('cart-panel');
+    panel.classList.toggle('open');
+    document.getElementById('cart-overlay').classList.toggle('open');
+    document.body.classList.toggle('cart-open', panel.classList.contains('open'));
+  }
+
+  function abrirCheckout() {
+    const items=Object.values(carrito);
+    if(!items.length){showToast('⚠️ Agrega productos primero');return;}
+    const total=items.reduce((s,i)=>s+i.precio*i.qty,0);
+    document.getElementById('resumen-items').innerHTML=items.map(i=>`
+      <div class="resumen-item"><span>${i.qty}x ${i.nombre}</span><span>${fmtP(i.precio*i.qty)}</span></div>`).join('');
+    document.getElementById('resumen-total-val').textContent=fmtP(total);
+    document.getElementById('modal-overlay').classList.add('open');
+    document.body.style.overflow='hidden'; toggleCart();
+  }
+  function closeModal(){document.getElementById('modal-overlay').classList.remove('open');document.body.style.overflow='';}
+  function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+  function seleccionarPago(btn,m) {
+    document.querySelectorAll('.metodo-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected'); metodoPago=m;
+    const tr=document.getElementById('info-transferencia');
+    const pb=document.getElementById('pagar-btn');
+    if(m==='transferencia'){tr.style.display='block';pb.textContent='Confirmar pedido (transferencia)';}
+    else{tr.style.display='none';pb.textContent='Pagar con Flow';}
+  }
+
+  function procesarPago() {
+    const nombre   = document.getElementById('f-nombre').value.trim();
+    const apellido = document.getElementById('f-apellido').value.trim();
+    const email    = document.getElementById('f-email').value.trim();
+    const telefono = document.getElementById('f-telefono').value.trim();
+    const direccion= document.getElementById('f-direccion').value.trim();
+    const ciudad   = document.getElementById('f-ciudad').value.trim();
+    const region   = document.getElementById('f-region').value.trim();
+    if(!nombre)   { showToast('⚠️ Ingresa tu nombre');        document.getElementById('f-nombre').focus();    return; }
+    if(!apellido) { showToast('⚠️ Ingresa tu apellido');      document.getElementById('f-apellido').focus();  return; }
+    if(!email)    { showToast('⚠️ Ingresa tu email');         document.getElementById('f-email').focus();     return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast('⚠️ Email inválido'); document.getElementById('f-email').focus(); return; }
+    if(!telefono) { showToast('⚠️ Ingresa tu teléfono');      document.getElementById('f-telefono').focus();  return; }
+    if(!direccion){ showToast('⚠️ Ingresa tu dirección');     document.getElementById('f-direccion').focus(); return; }
+    if(!ciudad)   { showToast('⚠️ Ingresa tu ciudad');        document.getElementById('f-ciudad').focus();    return; }
+    if(!region)   { showToast('⚠️ Selecciona tu región');     document.getElementById('f-region').focus();    return; }
+    const items = Object.values(carrito);
+    if(!items.length){ showToast('⚠️ El carrito está vacío'); return; }
+    const btn = document.getElementById('pagar-btn');
+    btn.disabled = true;
+    if(metodoPago === 'webpay'){
+      btn.textContent = '⏳ Conectando con Flow.cl...';
+      fetch('/api/pago/iniciar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          items: items.map(i => ({ nombre: i.nombre, precio: i.precio, cantidad: i.qty }))
+        })
+      })
+      .then(r => {
+        if(!r.ok) return r.json().then(e => { throw new Error(e.error || 'Error ' + r.status); });
+        return r.json();
+      })
+      .then(data => {
+        if(data.url){ window.location.href = data.url; }
+        else { throw new Error('Flow no devolvió URL de pago'); }
+      })
+      .catch(err => {
+        showToast('⚠️ ' + err.message);
+        btn.textContent = 'Pagar con Flow';
+        btn.disabled = false;
+      });
+    } else {
+      const ped=items.map(i=>`- ${i.qty}x ${i.nombre}: ${fmtP(i.precio*i.qty)}`).join('%0A');
+      const msg=`Hola%20Nativa%20Sur!%20Confirmo%20pedido%20por%20transferencia:%0A%0A`
+        +`*Cliente:* ${encodeURIComponent(nombre+' '+apellido)}%0A`
+        +`*Email:* ${encodeURIComponent(email)}%0A`
+        +`*Tel:* ${encodeURIComponent(telefono)}%0A`
+        +`*Dir:* ${encodeURIComponent(direccion+', '+ciudad+', '+region)}%0A%0A`
+        +`*Pedido:*%0A${ped}%0A%0A*Total: ${fmtP(total)}*`;
+      window.open(`https://wa.me/${WA}?text=${msg}`,'_blank');
+      closeModal(); carrito={}; actualizarCarrito(); showToast('✅ Pedido enviado. ¡Gracias!'); btn.disabled=false;
+    }
+  }
+
+  let toastT;
+  function showToast(msg){
+    const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2800);
+  }
+
+  renderProductos(); renderGaleria();
+
+  // ── Carrusel hero ─────────────────────────────
+  (function() {
+    const DURATION = 4000; // ms por slide
+    const dots = document.querySelectorAll('.hero-dot-nav');
+    const slider = document.getElementById('hero-slider');
+    let current = 0, timer;
+
+    function goSlide(n) {
+      current = ((n % 3) + 3) % 3;
+      window._heroSlide = current;
+      slider.style.animation = 'none';
+      slider.style.transform = `translateX(-${current * 33.333}%)`;
+      slider.style.transition = 'transform .8s cubic-bezier(.77,0,.175,1)';
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      clearInterval(timer);
+      timer = setInterval(nextSlide, DURATION);
+    }
+
+    function nextSlide() { goSlide((current + 1) % 3); }
+
+    window.goSlide = goSlide;
+
+    // arrancar auto-play
+    window._heroSlide = 0;
+    timer = setInterval(nextSlide, DURATION);
+  })();
+
+  // ── Menú lateral ──────────────────────────────
+  function toggleMenu() {
+    document.getElementById('menu-panel').classList.toggle('open');
+    document.getElementById('menu-overlay').classList.toggle('open');
+  }
+
+  // ── Panel perfil ──────────────────────────────
+  function togglePerfil() {
+    document.getElementById('perfil-panel').classList.toggle('open');
+    document.getElementById('perfil-overlay').classList.toggle('open');
+  }
+
+  // ── Tema oscuro / claro ───────────────────────
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('nativa-theme', isDark ? 'dark' : 'light');
+  }
+  // Restaurar preferencia al cargar
+  (function() {
+    const saved = localStorage.getItem('nativa-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+
+  // ── Selector de idioma ────────────────────────
+  const TRADUCCIONES = {
+    ES: {
+      navProductos:'Productos', navGaleria:'Galería', navNosotros:'Nosotros', navContacto:'Contacto',
+      heroTitle:'Frutos Secos<br><em>Naturaleza Pura</em>',
+      heroBadge:'Importado directamente · Sin intermediarios',
+      heroSlogan:'Calidad Premium · Chile',
+      heroDesc:'Seleccionamos los mejores frutos secos del mundo y los traemos directamente a ti. Energía natural, sabor auténtico, precio justo.',
+      heroCta1:'Ver productos', heroCta2:'Contáctanos',
+      cartBtn:'Mi pedido', cartStickyLabel:'Ver mi pedido',
+      ubicacion:"O'Higgins · Santiago",
+    },
+    EN: {
+      navProductos:'Products', navGaleria:'Gallery', navNosotros:'About', navContacto:'Contact',
+      heroTitle:'Dried Fruits<br><em>Pure Nature</em>',
+      heroBadge:'Directly imported · No middlemen',
+      heroSlogan:'Premium Quality · Chile',
+      heroDesc:'We select the finest nuts and dried fruits from around the world and bring them straight to you. Natural energy, authentic flavor, fair price.',
+      heroCta1:'View products', heroCta2:'Contact us',
+      cartBtn:'My order', cartStickyLabel:'View my order',
+      ubicacion:"O'Higgins · Santiago",
+    },
+    PT: {
+      navProductos:'Produtos', navGaleria:'Galeria', navNosotros:'Sobre nós', navContacto:'Contato',
+      heroTitle:'Frutas Secas<br><em>Natureza Pura</em>',
+      heroBadge:'Importado diretamente · Sem intermediários',
+      heroSlogan:'Qualidade Premium · Chile',
+      heroDesc:'Selecionamos as melhores frutas secas e oleaginosas do mundo e trazemos diretamente para você. Energia natural, sabor autêntico, preço justo.',
+      heroCta1:'Ver produtos', heroCta2:'Fale conosco',
+      cartBtn:'Meu pedido', cartStickyLabel:'Ver meu pedido',
+      ubicacion:"O'Higgins · Santiago",
+    },
+  };
+
+  let langActual = 'ES';
+
+  function toggleLangDropdown() {
+    document.getElementById('lang-dropdown').classList.toggle('open');
+  }
+
+  function setLang(lang, flag, ev) {
+    if(ev) ev.stopPropagation();
+    langActual = lang;
+    // badge
+    document.getElementById('lang-badge').textContent = lang;
+    // checks
+    document.querySelectorAll('.tb-dropdown-item').forEach(el => {
+      el.classList.remove('selected');
+      el.querySelector('.check').style.opacity = '0';
+    });
+    if(ev && ev.currentTarget) {
+      ev.currentTarget.classList.add('selected');
+      ev.currentTarget.querySelector('.check').style.opacity = '1';
+    }
+    // cerrar dropdown
+    document.getElementById('lang-dropdown').classList.remove('open');
+    // aplicar textos
+    const t = TRADUCCIONES[lang];
+    const navLinks = document.querySelectorAll('.nav-links a');
+    if(navLinks[0]) navLinks[0].textContent = t.navProductos;
+    if(navLinks[1]) navLinks[1].textContent = t.navGaleria;
+    if(navLinks[2]) navLinks[2].textContent = t.navNosotros;
+    if(navLinks[3]) navLinks[3].textContent = t.navContacto;
+    const heroTitle = document.querySelector('.hero h1');
+    if(heroTitle) heroTitle.innerHTML = t.heroTitle;
+    const heroBadge = document.querySelector('.hero-badge');
+    if(heroBadge) heroBadge.innerHTML = `<span class="dot"></span>${t.heroBadge}`;
+    const heroSlogan = document.querySelector('.hero-slogan');
+    if(heroSlogan) heroSlogan.textContent = t.heroSlogan;
+    const heroDesc = document.querySelector('.hero p');
+    if(heroDesc) heroDesc.textContent = t.heroDesc;
+    const heroCtas = document.querySelectorAll('.hero-cta a');
+    if(heroCtas[0]) heroCtas[0].textContent = t.heroCta1;
+    if(heroCtas[1]) heroCtas[1].textContent = t.heroCta2;
+    const cartBtn = document.querySelector('.cart-btn');
+    if(cartBtn) { cartBtn.childNodes[0].textContent = '🛒 '+t.cartBtn+' '; }
+    const scLabel = document.querySelector('.sc-label');
+    if(scLabel) scLabel.innerHTML = t.cartStickyLabel+' <span>· toca para revisar</span>';
+    showToast({ ES:'🇨🇱 Idioma: Español', EN:'🇺🇸 Language: English', PT:'🇧🇷 Idioma: Português' }[lang]);
+  }
+
+  // Cerrar dropdown de idioma al click fuera
+  document.addEventListener('click', e => {
+    const dd = document.getElementById('lang-dropdown');
+    if(!document.getElementById('lang-btn').contains(e.target)) dd.classList.remove('open');
+  });
+
+  // Cargar productos desde la API al iniciar
+  document.addEventListener('DOMContentLoaded', () => {
+    cargarProductosDesdeAPI();
+  });
+</script>
+</body>
+</html>

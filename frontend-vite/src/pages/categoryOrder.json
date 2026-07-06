@@ -1,0 +1,5 @@
+{
+  "research.category": { "order": 1, "icon": "FaFlask" },
+  "tienda.category":   { "order": 2, "icon": "FaShoppingBag" },
+  "admin.category":    { "order": 3, "icon": "FaShieldAlt" }
+}

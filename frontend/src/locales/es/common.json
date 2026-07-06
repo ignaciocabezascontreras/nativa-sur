@@ -1,0 +1,22 @@
+{
+  "marca": "Nativa Sur",
+  "slogan": "Frutos Secos · Naturaleza Pura",
+  "nav.productos": "Productos",
+  "nav.galeria": "Galería",
+  "nav.nosotros": "Nosotros",
+  "nav.contacto": "Contacto",
+  "nav.admin": "Administrador",
+  "nav.pedidos": "Mis Pedidos",
+  "nav.login": "Iniciar sesión",
+  "nav.logout": "Cerrar sesión",
+  "btn.agregar": "Agregar",
+  "btn.pagar": "Pagar",
+  "btn.cancelar": "Cancelar",
+  "btn.guardar": "Guardar",
+  "btn.eliminar": "Eliminar",
+  "carrito.titulo": "Mi Pedido",
+  "carrito.vacio": "Tu pedido está vacío",
+  "carrito.total": "Total",
+  "carrito.whatsapp": "Pedir por WhatsApp",
+  "carrito.checkout": "Finalizar pedido"
+}
