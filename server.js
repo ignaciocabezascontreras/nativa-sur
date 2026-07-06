@@ -57,10 +57,11 @@ function flowPost(endpoint, params) {
   });
 }
 
-// ── PROXY PRODUCTOS (reenvía al backend FastAPI en puerto 8000) ──
+// ── PROXY PRODUCTOS ──
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000';
 app.get('/api/productos', async (req, res) => {
   try {
-    const url = 'http://localhost:8000/api/productos' + (req.query.categoria ? `?categoria=${req.query.categoria}` : '');
+    const url = `${BACKEND_URL}/api/productos` + (req.query.categoria ? `?categoria=${req.query.categoria}` : '');
     const r = await fetch(url);
     const data = await r.json();
     res.json(data);
