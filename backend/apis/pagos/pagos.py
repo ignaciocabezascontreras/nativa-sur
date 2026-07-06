@@ -10,7 +10,7 @@ router = APIRouter(prefix="/pagos", tags=["pagos"])
 FLOW_API_KEY    = os.getenv("FLOW_API_KEY", "")
 FLOW_SECRET_KEY = os.getenv("FLOW_SECRET_KEY", "")
 FLOW_URL        = os.getenv("FLOW_URL", "https://www.flow.cl/api")
-PUBLIC_URL      = "https://antique-specials-julia-employees.trycloudflare.com"
+PUBLIC_URL      = os.getenv("PUBLIC_URL", "http://localhost:8000")
 FRONTEND_URL    = os.getenv("FRONTEND_URL", "http://localhost:3000")
 
 
@@ -91,10 +91,11 @@ def iniciar_pago(body: IniciarPagoBody):
     return {"url": url_pago, "token": data.get("token"), "commerce_id": commerce_id}
 
 
-@router.get("/confirmar")
+@router.post("/confirmar")
 async def confirmar_pago(request: Request):
-    """Flow llama a este endpoint cuando el pago es procesado (GET con token)."""
-    token = request.query_params.get("token")
+    """Flow llama a este endpoint cuando el pago es procesado (POST con token en el body)."""
+    form  = await request.form()
+    token = form.get("token") or request.query_params.get("token")
     if not token:
         raise HTTPException(status_code=400, detail="Token ausente")
 

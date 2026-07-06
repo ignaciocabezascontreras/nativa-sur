@@ -16,6 +16,8 @@ services:
         value: https://www.flow.cl/api
       - key: FRONTEND_URL
         value: https://nasur.cl
+      - key: PUBLIC_URL
+        value: https://nasur.cl
       - key: ADMIN_EMAIL
         value: ignaciocabezascontreras@gmail.com
       - key: ADMIN_PASSWORD
