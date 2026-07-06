@@ -1,6 +1,7 @@
 import importlib, pkgutil, pathlib, sys, os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -32,3 +33,8 @@ for pkg in pkgutil.walk_packages([str(apis_path)], prefix="apis."):
 @app.get("/api/health")
 def health():
     return {"status": "ok", "marca": "Nativa Sur"}
+
+# ── Archivos estáticos del frontend (debe ir al final, tras las rutas /api) ──
+_static_dir = pathlib.Path(__file__).parent
+app.mount("/fotos", StaticFiles(directory=str(_static_dir / "fotos")), name="fotos")
+app.mount("/", StaticFiles(directory=str(_static_dir), html=True), name="static")

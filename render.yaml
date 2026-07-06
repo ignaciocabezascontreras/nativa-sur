@@ -9,9 +9,9 @@ services:
     region: oregon
     envVars:
       - key: FLOW_API_KEY
-        value: 56139FB1-5C9B-498E-B5C2-50925LBA0AE3
+        sync: false
       - key: FLOW_SECRET_KEY
-        value: 67e2d2f71a1985c061dbf378de076b71abffb179
+        sync: false
       - key: FLOW_URL
         value: https://www.flow.cl/api
       - key: FRONTEND_URL
@@ -19,7 +19,7 @@ services:
       - key: ADMIN_EMAIL
         value: ignaciocabezascontreras@gmail.com
       - key: ADMIN_PASSWORD
-        value: NativaSur2025!
+        sync: false
       - key: ADMIN_NAME
         value: Ignacio Cabezas
       - key: CORS_ORIGINS
