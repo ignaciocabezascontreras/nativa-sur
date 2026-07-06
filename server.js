@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const cors    = require('cors');
 const path    = require('path');
 const crypto  = require('crypto');
@@ -16,7 +16,7 @@ const FLOW_URL        = 'https://www.flow.cl/api';
 app.use(cors());
 app.use(express.json());
 
-// Servir index.html siempre fresco (sin caché)
+// Servir index.html siempre fresco (sin cachÃ©)
 app.get('/', (req, res) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.setHeader('Pragma', 'no-cache');
@@ -48,7 +48,7 @@ function flowPost(endpoint, params) {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         try { resolve(JSON.parse(data)); }
-        catch { reject(new Error('Respuesta inválida de Flow: ' + data)); }
+        catch { reject(new Error('Respuesta invÃ¡lida de Flow: ' + data)); }
       });
     });
     req.on('error', reject);
@@ -57,12 +57,12 @@ function flowPost(endpoint, params) {
   });
 }
 
-// ── PROXY PRODUCTOS ──
-const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000';
+// â”€â”€ PROXY PRODUCTOS â”€â”€
+const BACKEND_URL = 'https://babbling-refreeze-disinfect.ngrok-free.dev';
 app.get('/api/productos', async (req, res) => {
   try {
     const url = `${BACKEND_URL}/api/productos` + (req.query.categoria ? `?categoria=${req.query.categoria}` : '');
-    const r = await fetch(url);
+    const r = await fetch(url, { headers: { 'ngrok-skip-browser-warning': 'true' } });
     const data = await r.json();
     res.json(data);
   } catch (e) {
@@ -70,7 +70,7 @@ app.get('/api/productos', async (req, res) => {
   }
 });
 
-// ── INICIAR PAGO FLOW ──
+// â”€â”€ INICIAR PAGO FLOW â”€â”€
 app.post('/api/pago/iniciar', async (req, res) => {
   const { email, items } = req.body;
   if (!email || !items || !items.length) {
@@ -89,7 +89,7 @@ app.post('/api/pago/iniciar', async (req, res) => {
       urlReturn:       'http://localhost:3000/#pago-ok',
     });
     if (!data.url || !data.token) {
-      return res.status(502).json({ error: 'Flow no devolvió URL', detalle: data });
+      return res.status(502).json({ error: 'Flow no devolviÃ³ URL', detalle: data });
     }
     res.json({ url: `${data.url}?token=${data.token}`, token: data.token });
   } catch (e) {
@@ -97,14 +97,15 @@ app.post('/api/pago/iniciar', async (req, res) => {
   }
 });
 
-// ── CONFIRMACIÓN WEBHOOK DE FLOW ──
+// â”€â”€ CONFIRMACIÃ“N WEBHOOK DE FLOW â”€â”€
 app.get('/api/pago/confirmar', (req, res) => {
-  console.log('Flow confirmó pago, token:', req.query.token);
+  console.log('Flow confirmÃ³ pago, token:', req.query.token);
   res.json({ status: 'ok' });
 });
 
 app.get('/api/health', (req, res) => res.json({ status: 'ok', marca: 'Nativa Sur' }));
 
 app.listen(PORT, () => {
-  console.log(`\n🌿 Nativa Sur — http://localhost:${PORT}`);
+  console.log(`\nðŸŒ¿ Nativa Sur â€” http://localhost:${PORT}`);
 });
+
