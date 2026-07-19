@@ -2035,27 +2035,37 @@
     btn.disabled = true;
     if(metodoPago === 'webpay'){
       btn.textContent = '⏳ Conectando con Flow.cl...';
-      fetch('/api/pago/iniciar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: email,
-          items: items.map(i => ({ nombre: i.nombre, precio: i.precio, cantidad: i.qty }))
-        })
-      })
-      .then(r => {
-        if(!r.ok) return r.json().then(e => { throw new Error(e.error || 'Error ' + r.status); });
-        return r.json();
-      })
-      .then(data => {
-        if(data.url){ window.location.href = data.url; }
-        else { throw new Error('Flow no devolvió URL de pago'); }
-      })
-      .catch(err => {
-        showToast('⚠️ ' + err.message);
-        btn.textContent = 'Pagar con Flow';
-        btn.disabled = false;
-      });
+      const itemsPayload = items.map(i => ({ id: i.id, nombre: i.nombre, precio: i.precio, cantidad: i.qty }));
+      (async () => {
+        try {
+          // 1. Crear el pedido en el backend
+          const rPed = await fetch('/api/pedidos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nombre: nombre + ' ' + apellido, email, telefono,
+              direccion, ciudad, region,
+              items: itemsPayload, metodo_pago: 'webpay'
+            })
+          });
+          if(!rPed.ok){ const e = await rPed.json().catch(()=>({})); throw new Error(e.detail || 'No se pudo crear el pedido'); }
+          const pedido = await rPed.json();
+          // 2. Iniciar el pago en Flow con el pedido_id real
+          const rPago = await fetch('/api/pagos/iniciar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pedido_id: pedido.id, email, items: itemsPayload })
+          });
+          if(!rPago.ok){ const e = await rPago.json().catch(()=>({})); throw new Error(e.detail || 'Error al conectar con Flow'); }
+          const data = await rPago.json();
+          if(data.url){ window.location.href = data.url; }
+          else throw new Error('Flow no devolvió URL de pago');
+        } catch(err) {
+          showToast('⚠️ ' + err.message);
+          btn.textContent = 'Pagar con Flow';
+          btn.disabled = false;
+        }
+      })();
     } else {
       const ped=items.map(i=>`- ${i.qty}x ${i.nombre}: ${fmtP(i.precio*i.qty)}`).join('%0A');
       const msg=`Hola%20Nativa%20Sur!%20Confirmo%20pedido%20por%20transferencia:%0A%0A`
@@ -2217,9 +2227,36 @@
     if(!document.getElementById('lang-btn').contains(e.target)) dd.classList.remove('open');
   });
 
+  // ── Confirmación de pago (retorno desde Flow) ──
+  function mostrarPagoOk(){
+    const ov = document.createElement('div');
+    ov.className = 'modal-overlay open';
+    ov.innerHTML = `
+      <div class="modal" style="max-width:420px;text-align:center;">
+        <div class="modal-header" style="justify-content:center;">
+          <h3>✅ ¡Pago recibido!</h3>
+        </div>
+        <div class="modal-body">
+          <p style="margin-bottom:.6rem;font-weight:600;">Gracias por tu compra en Nativa Sur 🌿</p>
+          <p style="font-size:.9rem;color:var(--text-mid,#666);margin-bottom:1.4rem;">
+            Te enviaremos la confirmación y el detalle de tu pedido a tu correo.
+            Si tienes dudas, escríbenos por WhatsApp.
+          </p>
+          <button class="btn-hero-p" style="width:100%;justify-content:center;cursor:pointer;border:none;"
+            onclick="this.closest('.modal-overlay').remove()">Seguir explorando</button>
+        </div>
+      </div>`;
+    ov.addEventListener('click', e => { if(e.target === ov) ov.remove(); });
+    document.body.appendChild(ov);
+  }
+
   // Cargar productos desde la API al iniciar
   document.addEventListener('DOMContentLoaded', () => {
     cargarProductosDesdeAPI();
+    if(location.hash === '#pago-ok'){
+      history.replaceState(null, '', location.pathname);
+      mostrarPagoOk();
+    }
   });
 </script>
 </body>

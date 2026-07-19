@@ -70,7 +70,7 @@ def iniciar_pago(body: IniciarPagoBody):
         "amount":        str(total),
         "email":         body.email,
         "urlConfirmation": f"{PUBLIC_URL}/api/pagos/confirmar",
-        "urlReturn":       f"{FRONTEND_URL}/#pago-ok",
+        "urlReturn":       f"{PUBLIC_URL}/api/pagos/retorno",
     }
 
     try:
@@ -89,6 +89,14 @@ def iniciar_pago(body: IniciarPagoBody):
 
     url_pago = f"{data['url']}?token={data['token']}"
     return {"url": url_pago, "token": data.get("token"), "commerce_id": commerce_id}
+
+
+@router.post("/retorno")
+@router.get("/retorno")
+async def retorno_pago():
+    """Flow devuelve al comprador con POST; StaticFiles solo acepta GET,
+    asi que este endpoint recibe el retorno y redirige al sitio."""
+    return RedirectResponse(url="/#pago-ok", status_code=303)
 
 
 @router.post("/confirmar")

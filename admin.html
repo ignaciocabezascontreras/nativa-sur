@@ -416,7 +416,7 @@ tbody tr:hover td { background: #f8f4ed; }
 <script>
 const API = window.location.hostname === 'localhost'
   ? 'http://localhost:8000/api'
-  : 'https://nativa-sur-api.onrender.com/api';
+  : '/api';
 let TOKEN = localStorage.getItem('ns_token') || '';
 let todosProds = [], filtroNombre = '', filtroCat = '';
 
